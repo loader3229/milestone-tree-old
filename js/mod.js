@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.050",
+	num: "1.059",
 	name: "",
 }
 
@@ -56,7 +56,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.m.points.gte(50);
+	return player.m.points.gte(59);
 }
 
 
