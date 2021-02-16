@@ -991,7 +991,7 @@ addLayer("sp", {
 		33: {
 			title: "Super-Prestige Upgrade 33",
             description: "Super-Prestige Upgrade 31 is boosted.",
-            cost: new Decimal("1e13714"),
+            cost: new Decimal("1e13713"),
             unlocked() { return player.m.points.gte(55)}, // The upgrade is only visible when this is true
         },
 		34: {
