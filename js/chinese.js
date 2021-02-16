@@ -28,6 +28,33 @@ layers.m.milestones[4-1].effectDescription=function(){
 layers.m.milestones[5-1].effectDescription=function(){
 	return "解锁下一个层级。里程碑不会被重置。";
 }
+layers.m.milestones[6-1].effectDescription=function(){
+	return "基于你的总里程碑数量，声望点数的获得变得更好。现在：x"+format(tmp.m.milestone6Effect);
+}
+layers.m.milestones[7-1].effectDescription=function(){
+	return "第六个里程碑的效果变为原来的1.5次方。";
+}
+layers.m.milestones[8-1].effectDescription=function(){
+	return "第六个里程碑的效果变为原来的1.2次方。";
+}
+layers.m.milestones[9-1].effectDescription=function(){
+	return "第六个里程碑的效果变为原来的1.1次方。";
+}
+layers.m.milestones[10-1].effectDescription=function(){
+	return "解锁2个新的声望升级。";
+}
+layers.m.milestones[11-1].effectDescription=function(){
+	return "声望升级11的效果变得更好。";
+}
+layers.m.milestones[12-1].effectDescription=function(){
+	return "声望升级12的效果变得更好。";
+}
+layers.m.milestones[13-1].effectDescription=function(){
+	return "声望升级13的效果变得更好。";
+}
+layers.m.milestones[14-1].effectDescription=function(){
+	return "声望升级14的效果变得更好。";
+}
 
 layers.mm.resource="元里程碑";
 layers.mm.effectDescription="";
