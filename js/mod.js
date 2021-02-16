@@ -12,8 +12,8 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.059",
-	name: "",
+	num: "1.069",
+	name: "lol",
 }
 
 let changelog = ``
@@ -43,6 +43,8 @@ function getPointGen() {
 	if(hasUpgrade("p",12))b=b.mul(upgradeEffect("p",12));
 	if(hasUpgrade("sp",11))b=b.mul(upgradeEffect("sp",11));
 	if(hasUpgrade("sp",12))b=b.mul(upgradeEffect("sp",12));
+	if(hasUpgrade("hp",11))b=b.mul(upgradeEffect("hp",11));
+	if(hasUpgrade("hp",12))b=b.mul(upgradeEffect("hp",12));
 	return b
 }
 
@@ -56,7 +58,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.m.points.gte(59);
+	return player.m.points.gte(69);
 }
 
 

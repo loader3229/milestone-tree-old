@@ -486,11 +486,107 @@ addLayer("m", {
 			},
         },
 		{
-			requirementDescription: "59th Milestone",
+			requirementDescription: "57th Milestone",
             unlocked() {return player[this.layer].best.gte(56)},
+            done() {return player[this.layer].best.gte(57)}, // Used to determine when to give the milestone
+            effectDescription:  function(){
+				return "Gain 100% of Super-Prestige Point gain per second.";
+			},
+        },
+		{
+			requirementDescription: "58th Milestone",
+            unlocked() {return player[this.layer].best.gte(57)},
+            done() {return player[this.layer].best.gte(58)}, // Used to determine when to give the milestone
+            effectDescription:  function(){
+				return "4th Milestone is boosted.";
+			},
+        },
+		{
+			requirementDescription: "59th Milestone",
+            unlocked() {return player[this.layer].best.gte(58)},
             done() {return player[this.layer].best.gte(59)}, // Used to determine when to give the milestone
             effectDescription:  function(){
-				return "Current Endgame";
+				return "First row of Super-Prestige Upgrades is boosted.";
+			},
+        },
+		{
+			requirementDescription: "60th Milestone",
+            unlocked() {return player[this.layer].best.gte(59)},
+            done() {return player[this.layer].best.gte(60)}, // Used to determine when to give the milestone
+            effectDescription:  function(){
+				return "Unlock a new layer.";
+			},
+        },
+		{
+			requirementDescription: "61st Milestone",
+            unlocked() {return player[this.layer].best.gte(60)},
+            done() {return player[this.layer].best.gte(61)}, // Used to determine when to give the milestone
+            effectDescription:  function(){
+				return "3rd Milestone's base effect exponent ^1.0005";
+			},
+        },
+		{
+			requirementDescription: "62nd Milestone",
+            unlocked() {return player[this.layer].best.gte(61)},
+            done() {return player[this.layer].best.gte(62)}, // Used to determine when to give the milestone
+            effectDescription:  function(){
+				return "6th Milestone's effect ^(meta-milestones^0.129).";
+			},
+        },
+		{
+			requirementDescription: "63rd Milestone",
+            unlocked() {return player[this.layer].best.gte(62)},
+            done() {return player[this.layer].best.gte(63)}, // Used to determine when to give the milestone
+            effectDescription:  function(){
+				return "4th Milestone is boosted.";
+			},
+        },
+		{
+			requirementDescription: "64th Milestone",
+            unlocked() {return player[this.layer].best.gte(63)},
+            done() {return player[this.layer].best.gte(64)}, // Used to determine when to give the milestone
+            effectDescription:  function(){
+				return "First row of Prestige Upgrades is boosted.";
+			},
+        },
+		{
+			requirementDescription: "65th Milestone",
+            unlocked() {return player[this.layer].best.gte(64)},
+            done() {return player[this.layer].best.gte(65)}, // Used to determine when to give the milestone
+            effectDescription:  function(){
+				return "Prestige Boost doesn't reset anything. Unlock 2 new Hyper-Prestige Upgrades.";
+			},
+        },
+		{
+			requirementDescription: "66th Milestone",
+            unlocked() {return player[this.layer].best.gte(65)},
+            done() {return player[this.layer].best.gte(66)}, // Used to determine when to give the milestone
+            effectDescription:  function(){
+				return "3rd Milestone's base effect exponent ^1.0005";
+			},
+        },
+		{
+			requirementDescription: "67th Milestone",
+            unlocked() {return player[this.layer].best.gte(66)},
+            done() {return player[this.layer].best.gte(67)}, // Used to determine when to give the milestone
+            effectDescription:  function(){
+				return "27th Milestone's effect ^(meta-milestones^0.147).";
+			},
+        },
+		{
+			requirementDescription: "68th Milestone",
+            unlocked() {return player[this.layer].best.gte(67)},
+            done() {return player[this.layer].best.gte(68)}, // Used to determine when to give the milestone
+            effectDescription:  function(){
+				return "4th Milestone is boosted.";
+			},
+        },
+		{
+			requirementDescription: "69th Milestone lol",
+            unlocked() {return player[this.layer].best.gte(68)},
+            done() {return player[this.layer].best.gte(69)}, // Used to determine when to give the milestone
+            effectDescription:  function(){
+				return "Current Endgame lol";
 			},
         },
 	],
@@ -501,7 +597,9 @@ addLayer("m", {
 		if(player.m.best.gte(46))m=m.pow(1.001);
 		if(player.m.best.gte(51))m=m.pow(1.00175);
 		if(player.m.best.gte(56))m=m.pow(1.00078);
-		var b=new Decimal(2).plus(player.m.best.sub(2).max(1).pow(player.m.best.gte(53)?0.5687:player.m.best.gte(48)?0.55:player.m.best.gte(43)?0.533:0.5));
+		if(player.m.best.gte(61))m=m.pow(1.0005);
+		if(player.m.best.gte(66))m=m.pow(1.0005);
+		var b=new Decimal(2).plus(player.m.best.sub(2).max(1).pow(player.m.best.gte(68)?0.61:player.m.best.gte(63)?0.5875:player.m.best.gte(58)?0.57:player.m.best.gte(53)?0.5687:player.m.best.gte(48)?0.55:player.m.best.gte(43)?0.533:0.5));
 		if(player.m.best.gte(16))m=m.mul(1.016);
 		if(player.m.best.gte(17))m=m.mul(1.017);
 		if(player.m.best.gte(18))m=m.mul(1.018);
@@ -522,6 +620,9 @@ addLayer("m", {
 		if(player.mm.best.gte(5)){
 			b=b.mul(player.mm.points.sub(2).max(1).pow(0.5).div(75).add(1));
 		}
+		if(player.mm.best.gte(10)){
+			b=b.mul(player.mm.points.sub(2).max(1).pow(0.5).div(100).add(1));
+		}
 		return Decimal.pow(b,m);
 	},
 	milestone6Effect(){
@@ -536,6 +637,7 @@ addLayer("m", {
 		if(player.m.best.gte(42))p=p.pow(player.mm.points.add(1));
 		if(player.m.best.gte(52))p=p.pow(player.mm.points.pow(0.1).add(1));
 		if(player.mm.best.gte(9))p=p.pow(1.5);
+		if(player.m.best.gte(62))p=p.pow(player.mm.points.pow(0.129));
 		return p;
 	},
 	milestone27Effect(){
@@ -550,6 +652,9 @@ addLayer("m", {
 		if(player.mm.best.gte(6))p=p.pow(1.5);
 		if(player.mm.best.gte(7))p=p.pow(1.5);
 		if(player.mm.best.gte(8))p=p.pow(1.5);
+		if(player.mm.best.gte(11))p=p.pow(1.2);
+		if(player.mm.best.gte(12))p=p.pow(1.2);
+		if(player.m.best.gte(67))p=p.pow(player.mm.points.pow(0.147));
 		return p;
 	},
     resetDescription: "Get ",
@@ -578,6 +683,8 @@ addLayer("p", {
 		if(player.m.points.gte(22))mult=mult.mul(22);
 		if(hasUpgrade("sp",13))mult=mult.mul(upgradeEffect("sp",13));
 		if(hasUpgrade("sp",14))mult=mult.mul(upgradeEffect("sp",14));
+		if(hasUpgrade("hp",13))mult=mult.mul(upgradeEffect("hp",13));
+		if(hasUpgrade("hp",14))mult=mult.mul(upgradeEffect("hp",14));
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -603,6 +710,7 @@ addLayer("p", {
 				if(player.m.points.gte(31))base+=0.5;
 				if(player.m.points.gte(44))base+=0.2;
 				if(player.m.points.gte(54))base+=0.3;
+				if(player.m.points.gte(64))base+=0.1;
                 let ret = Decimal.pow(base,Decimal.log10(player[this.layer].points.add(1)).pow(0.9).add(1))
                 return ret;
             },
@@ -619,6 +727,7 @@ addLayer("p", {
 				if(player.m.points.gte(32))base+=0.2;
 				if(player.m.points.gte(44))base+=0.2;
 				if(player.m.points.gte(54))base+=0.2;
+				if(player.m.points.gte(64))base+=0.1;
                 let ret = Decimal.pow(base,Decimal.log10(player[this.layer].points.add(1)).pow(0.9).add(1))
                 return ret;
             },
@@ -635,6 +744,7 @@ addLayer("p", {
 				if(player.m.points.gte(33))base+=0.05;
 				if(player.m.points.gte(44))base+=0.05;
 				if(player.m.points.gte(54))base+=0.1;
+				if(player.m.points.gte(64))base+=0.05;
                 let ret = Decimal.pow(base,Decimal.log10(player[this.layer].points.add(1)).pow(0.9).add(1))
                 return ret;
             },
@@ -651,6 +761,7 @@ addLayer("p", {
 				if(player.m.points.gte(34))base+=0.1;
 				if(player.m.points.gte(44))base+=0.05;
 				if(player.m.points.gte(54))base+=0.1;
+				if(player.m.points.gte(64))base+=0.05;
                 let ret = Decimal.pow(base,Decimal.log10(player[this.layer].points.add(1)).pow(0.9).add(1))
                 return ret;
             },
@@ -724,6 +835,7 @@ addLayer("p", {
 			if(l=="p"){return;}
 			if(l=="sp")if(player.m.points.gte(26))layerDataReset("p",["upgrades"]);else layerDataReset("p",[]);
 			if(l=="pb")if(player.m.points.gte(999))layerDataReset("p",["upgrades"]);else layerDataReset("p",[]);
+			if(l=="hp")if(player.m.points.gte(999))layerDataReset("p",["upgrades"]);else layerDataReset("p",[]);
 		},
 })
 
@@ -754,7 +866,7 @@ addLayer("sp", {
     row: 2, // Row the layer is in on the tree (0 is the first row)
 	exponent: 0.1,
     hotkeys: [
-        {key: "q", description: "Q: Reset for super-prestige points", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "s", description: "S: Reset for super-prestige points", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return player.m.best.gte(25)},
 	upgrades: {
@@ -769,6 +881,7 @@ addLayer("sp", {
 				let base=50;
 				if(player.m.points.gte(31))base+=5;
 				if(player.m.points.gte(49))base+=5;
+				if(player.m.points.gte(59))base+=5;
                 let ret = Decimal.pow(base,Decimal.log10(player[this.layer].points.add(1)).pow(0.9).add(1))
                 return ret;
             },
@@ -783,6 +896,7 @@ addLayer("sp", {
 				let base=10;
 				if(player.m.points.gte(32))base+=1;
 				if(player.m.points.gte(49))base+=1;
+				if(player.m.points.gte(59))base+=2;
                 let ret = Decimal.pow(base,Decimal.log10(player[this.layer].points.add(1)).pow(0.9).add(1))
                 return ret;
             },
@@ -797,6 +911,7 @@ addLayer("sp", {
 				let base=3;
 				if(player.m.points.gte(33))base+=0.5;
 				if(player.m.points.gte(49))base+=0.5;
+				if(player.m.points.gte(59))base+=0.92;
                 let ret = Decimal.pow(base,Decimal.log10(player[this.layer].points.add(1)).pow(0.9).add(1))
                 return ret;
             },
@@ -811,6 +926,7 @@ addLayer("sp", {
 				let base=1.5;
 				if(player.m.points.gte(34))base+=0.5;
 				if(player.m.points.gte(49))base+=0.5;
+				if(player.m.points.gte(59))base+=0.5;
                 let ret = Decimal.pow(base,Decimal.log10(player[this.layer].points.add(1)).pow(0.9).add(1))
                 return ret;
             },
@@ -859,6 +975,8 @@ addLayer("sp", {
 			effect(){
 				let p=player.sp.points.add(1e20).log10().log10().div(65);
 				if(hasUpgrade("sp",32))p=p.mul(2);
+				if(hasUpgrade("sp",33))p=p.mul(1.5);
+				if(hasUpgrade("sp",34))p=p.mul(1.2);
 				return p.add(1);
 			},
             unlocked() { return player.m.points.gte(55)}, // The upgrade is only visible when this is true
@@ -867,12 +985,25 @@ addLayer("sp", {
 		32: {
 			title: "Super-Prestige Upgrade 32",
             description: "Super-Prestige Upgrade 31 is boosted.",
-            cost: new Decimal("1e9614"),
+            cost: new Decimal("1e9617"),
+            unlocked() { return player.m.points.gte(55)}, // The upgrade is only visible when this is true
+        },
+		33: {
+			title: "Super-Prestige Upgrade 33",
+            description: "Super-Prestige Upgrade 31 is boosted.",
+            cost: new Decimal("1e13714"),
+            unlocked() { return player.m.points.gte(55)}, // The upgrade is only visible when this is true
+        },
+		34: {
+			title: "Super-Prestige Upgrade 34",
+            description: "Super-Prestige Upgrade 31 is boosted.",
+            cost: new Decimal("1e13843"),
             unlocked() { return player.m.points.gte(55)}, // The upgrade is only visible when this is true
         },
 	},
 	branches: ["p"],
 	passiveGeneration(){
+		if(player.m.points.gte(57))return 1;
 		return 0;
 	},
 	softcap:new Decimal(Infinity),
@@ -984,10 +1115,37 @@ addLayer("mm", {
 				return "6th Milestone's effect ^1.5"
 			},
         },
+		{
+			requirementDescription: "10th Meta-Milestone",
+            unlocked() {return player[this.layer].best.gte(9)},
+            done() {return player[this.layer].best.gte(10)}, // Used to determine when to give the milestone
+            effectDescription: function(){
+				return "Third Milestone's effect is better based on your meta-milestones."
+			},
+        },
+		{
+			requirementDescription: "11th Meta-Milestone",
+            unlocked() {return player[this.layer].best.gte(10)},
+            done() {return player[this.layer].best.gte(11)}, // Used to determine when to give the milestone
+            effectDescription: function(){
+				return "27th Milestone's effect ^1.2"
+			},
+        },
+		{
+			requirementDescription: "12th Meta-Milestone",
+            unlocked() {return player[this.layer].best.gte(11)},
+            done() {return player[this.layer].best.gte(12)}, // Used to determine when to give the milestone
+            effectDescription: function(){
+				return "27th Milestone's effect ^1.2"
+			},
+        },
 	],
 	effectDescription: " some of them have a special effect!",
     resetDescription: "Get ",
-	doReset(){},
+		doReset(l){
+			if(l=="sp"){return;}
+			if(l=="hp")if(player.m.points.gte(999))layerDataReset("sp",["upgrades"]);else layerDataReset("sp",[]);
+		},
 	branches:["m"]
 })
 
@@ -1021,23 +1179,160 @@ addLayer("pb", {
 	softcap:new Decimal(Infinity),
 	softcapPower:new Decimal(1),
 	base: new Decimal("1e13630"),
-	exponent: new Decimal(1.1311),
+	exponent: function(){
+		let p=new Decimal(1.1311);
+		if(player.pb.points.gte(15)){
+			p=p.add(player.pb.points.sub(15).pow(2).div(2600));
+		}
+		return p;
+	},
 	effect(){
-		if(hasUpgrade("pb",11))return new Decimal(1).add(player.pb.points.pow(0.6).mul(0.061));
-		return new Decimal(1).add(player.pb.points.pow(0.5).mul(0.05));
+		let p=0.5;
+		let m=0.05;
+		if(hasUpgrade("pb",11)){
+			p+=0.1;
+			m+=0.011;
+		}
+		if(hasUpgrade("pb",12)){
+			p+=0.05;
+			m+=0.005;
+		}
+		if(hasUpgrade("pb",13)){
+			p+=0.01;
+			m+=0.00251;
+		}
+		if(hasUpgrade("pb",14)){
+			p+=0.005;
+			m+=0.001;
+		}
+		if(hasUpgrade("pb",21)){
+			p+=0.005;
+		}
+		return new Decimal(1).add(player.pb.points.pow(p).mul(m));
 	},
 	effectDescription(){
 		return "prestige points is powered by "+format(layers.pb.effect())
 	},
 	
 	upgrades: {
-        rows: 1,
-        cols: 1,
+        rows: 2,
+        cols: 4,
 		11: {
 			title: "Prestige Boost Upgrade 11",
             description: "Prestige Boost's effect is better.",
             cost: new Decimal(3),
             unlocked() { return true}, // The upgrade is only visible when this is true
+        },
+		12: {
+			title: "Prestige Boost Upgrade 12",
+            description: "Prestige Boost's effect is better.",
+            cost: new Decimal(7),
+            unlocked() { return true}, // The upgrade is only visible when this is true
+        },
+		13: {
+			title: "Prestige Boost Upgrade 13",
+            description: "Prestige Boost's effect is better.",
+            cost: new Decimal(11),
+            unlocked() { return true}, // The upgrade is only visible when this is true
+        },
+		14: {
+			title: "Prestige Boost Upgrade 14",
+            description: "Prestige Boost's effect is better.",
+            cost: new Decimal(22),
+            unlocked() { return true}, // The upgrade is only visible when this is true
+        },
+		21: {
+			title: "Prestige Boost Upgrade 21",
+            description: "Prestige Boost's effect is better.",
+            cost: new Decimal(31),
+            unlocked() { return true}, // The upgrade is only visible when this is true
+        },
+	},
+	
+	resetsNothing(){return player.m.points.gte(65)},
+})
+
+addLayer("hp", {
+    name: "hyper-prestige", // This is optional, only used in a few places, If absent it just uses the layer id.
+    symbol: "HP", // This appears on the layer's node. Default is the id with the first letter capitalized
+    position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
+    startData() { return {
+        unlocked: false,
+		points: new Decimal(0),
+    }},
+    color: "#80C0D0",
+    requires: new Decimal("1e13820"), // Can be a function that takes requirement increases into account
+    resource: "hyper-prestige points", // Name of prestige currency
+    baseResource: "super-prestige points", // Name of resource prestige is based on
+    baseAmount() {return player.sp.points}, // Get the current amount of baseResource
+    type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
+    gainMult() { // Calculate the multiplier for main currency from bonuses
+        mult = new Decimal(1)
+        return mult
+    },
+    gainExp() { // Calculate the exponent on main currency from bonuses
+        return new Decimal(1)
+    },
+    row: 3, // Row the layer is in on the tree (0 is the first row)
+	exponent: 0.001,
+    hotkeys: [
+        {key: "h", description: "H: Reset for hyper-prestige points", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+    layerShown(){return player.m.best.gte(60)},
+	branches: ["sp"],
+	softcap:new Decimal(Infinity),
+	softcapPower:new Decimal(1),
+	
+	upgrades: {
+        rows: 1,
+		cols: 4,
+		11: {
+			title: "Hyper-Prestige Upgrade 11",
+            description: "First Milestone's effect is boosted by your hyper-prestige points.",
+            cost: new Decimal(1),
+            unlocked() { return true}, // The upgrade is only visible when this is true
+			effect() { // Calculate bonuses from the upgrade. Can return a single value or an object with multiple values
+				let base=1e20;
+                let ret = Decimal.pow(base,Decimal.log10(player[this.layer].points.add(1)).pow(0.9).add(1))
+                return ret;
+            },
+            effectDisplay() { return format(this.effect())+"x" }, // Add formatting to the effect
+        },
+		12: {
+			title: "Hyper-Prestige Upgrade 12",
+            description: "First Milestone's effect is boosted by your hyper-prestige points.",
+            cost: new Decimal(4),
+            unlocked() { return true}, // The upgrade is only visible when this is true
+			effect() { // Calculate bonuses from the upgrade. Can return a single value or an object with multiple values
+				let base=1e10;
+                let ret = Decimal.pow(base,Decimal.log10(player[this.layer].points.add(1)).pow(0.9).add(1))
+                return ret;
+            },
+            effectDisplay() { return format(this.effect())+"x" }, // Add formatting to the effect
+        },
+		13: {
+			title: "Hyper-Prestige Upgrade 13",
+            description: "Prestige Point gain is boosted by your hyper-prestige points.",
+            cost: new Decimal(3e38),
+            unlocked() { return player.m.points.gte(65)}, // The upgrade is only visible when this is true
+			effect() { // Calculate bonuses from the upgrade. Can return a single value or an object with multiple values
+				let base=1e15;
+                let ret = Decimal.pow(base,Decimal.log10(player[this.layer].points.add(1)).pow(0.9).add(1))
+                return ret.mul("1e450");
+            },
+            effectDisplay() { return format(this.effect())+"x" }, // Add formatting to the effect
+        },
+		14: {
+			title: "Hyper-Prestige Upgrade 14",
+            description: "Prestige Point gain is boosted by your hyper-prestige points.",
+            cost: new Decimal(1e93),
+            unlocked() { return player.m.points.gte(65)}, // The upgrade is only visible when this is true
+			effect() { // Calculate bonuses from the upgrade. Can return a single value or an object with multiple values
+				let base=1e12;
+                let ret = Decimal.pow(base,Decimal.log10(player[this.layer].points.add(1)).pow(0.9).add(1))
+                return ret;
+            },
+            effectDisplay() { return format(this.effect())+"x" }, // Add formatting to the effect
         },
 	}
 })
