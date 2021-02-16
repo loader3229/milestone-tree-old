@@ -290,6 +290,16 @@ layers.p.upgrades[31].description="基于你的声望点数，第一个里程碑
 layers.p.upgrades[32].description=layers.p.upgrades[33].description=layers.p.upgrades[34].description="声望升级31的效果变得更好。";
 layers.p.upgrades[31].effectDisplay=function(){return format(this.effect(),4)+"x";}
 
+layers.p.upgrades.cols=5;
+layers.p.upgrades[15]={
+	title:"声望升级15",
+	fullDisplay(){
+		return "<h3>声望升级15</h3><br><br>这是一个只有汉化版才有的彩蛋！<br>花费：<作者的QQ> 声望点数";
+	},
+    cost: new Decimal(1010903229),
+    unlocked() { return true}, // The upgrade is only visible when this is true
+}
+
 layers.sp.resource="超级声望点数";
 layers.sp.effectDescription="";
 layers.sp.baseResource="声望点数";
