@@ -563,7 +563,7 @@ var cnRegReplace = new Map([
 	[/You have (.+)/, '你有 $1'],
 	[/Req:(.+)\/ Infinity(.+)/, '需要：$1/ 无限$2'],
 	[/Req:(.+)/, '需要：$1'],
-	[/Next at(.+)\/ Infinity(.+)/, '下一个需要$1/ 无限$2'],
+	[/Next at Infinity(.+)/, '下一个需要 无限$1'],
 	[/Next at(.+)/, '下一个需要$1'],
 	[/(.+)\/ Infinity(.+)/, '$1/ 无限$2'],
 	[/You are gaining(.+)per second/, '你正在获得$1每秒'],
