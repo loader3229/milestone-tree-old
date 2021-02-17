@@ -368,6 +368,10 @@ var cnItems = {
     ' points': '点数',
     'Milestone Gotten!': '获得里程碑！',
 	
+    'Start': '开始',
+    'Exit Early': '提前退出',
+    'Completed': '已完成',
+	
 	
     'Hotkeys': '热键',
     'M: Get Milestone': 'M：获得里程碑',
