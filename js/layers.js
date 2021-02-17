@@ -9,7 +9,7 @@ addLayer("m", {
     color: "#793784",
     requires(){
 		if(player.m.points.gte(99))return new Decimal(Infinity);
-		return new Decimal(10000);
+		return new Decimal(10);
 	},
     resource: "milestones", // Name of prestige currency
     baseResource: "points", // Name of resource prestige is based on
