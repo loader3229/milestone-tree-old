@@ -1347,6 +1347,9 @@ addLayer("sp", {
 				  let eff=new Decimal("1e10000").pow(player[this.layer].buyables[this.id]);
 				  if(hasUpgrade("hp",31))eff=eff.pow(1.05);
 				  return eff;
+			  },
+			  unlocked(){
+				  return player.m.points.gte(77);
 			  }
 		},
 	},
@@ -1924,7 +1927,7 @@ addLayer("hp", {
 				let data = tmp[this.layer].buyables[this.id];
 				return "Level: "+format(player[this.layer].buyables[this.id])+"<br>"+
 				"Prestige Point is multiplied by "+format(data.effect)+"<br>"+
-				"Cost for Next Level: "+format(data.cost)+" Super-Prestige points";
+				"Cost for Next Level: "+format(data.cost)+" Hyper-Prestige points";
 			},
 			cost(){
 				let a=player[this.layer].buyables[this.id];
@@ -1941,6 +1944,9 @@ addLayer("hp", {
 				  let eff=new Decimal("1e50000").pow(player[this.layer].buyables[this.id]);
 				  if(hasUpgrade("hp",32))eff=eff.pow(1.1);
 				  return eff;
+			  },
+			  unlocked(){
+				  return player.m.points.gte(85);
 			  }
 		},
 	},
