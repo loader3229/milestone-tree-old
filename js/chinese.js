@@ -404,7 +404,7 @@ layers.sp.buyables[11].display=function(){
 
 layers.pb.resource="声望加成";
 layers.pb.effectDescription=function(){
-	return "基础声望点数变为原来的"+format(layers.pb.effect())+"次方。";
+	return "声望点数变为原来的"+format(layers.pb.effect())+"次方。";
 };
 layers.pb.baseResource="声望点数";
 layers.pb.resetDescription="重置以获得";
@@ -412,7 +412,7 @@ layers.pb.resetDescription="重置以获得";
 for(i in layers.pb.upgrades){
 	if(i=="rows"||i=="cols")continue;
 	layers.pb.upgrades[i].title="声望加成升级"+i;
-	layers.pb.upgrades[i].description="声望加成的效果变得更好。";
+	if((i+0)<=24)layers.pb.upgrades[i].description="声望加成的效果变得更好。";
 }
 
 layers.hp.resource="第三级声望点数";

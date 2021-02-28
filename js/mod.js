@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.099",
+	num: "1.112",
 	name: "",
 }
 
@@ -33,8 +33,16 @@ function canGenPoints(){
 	return true
 }
 
-// Calculate points/sec!
 function getPointGen() {
+	var b=getPointGenBeforeSoftcap();var sc=getPointSoftcapStart().log10();
+	if(b.gte(getPointSoftcapStart())){
+		b=Decimal.pow(10,b.log10().div(sc).pow(0.6).mul(sc));
+	}
+	return b
+}
+
+
+function getPointGenBeforeSoftcap() {
 	var b=new Decimal(0)
 	if(player.m.best.gte(1))b=b.add(1);
 	if(player.m.best.gte(2))b=b.mul(3);
@@ -46,9 +54,25 @@ function getPointGen() {
 	if(hasUpgrade("hp",11))b=b.mul(upgradeEffect("hp",11));
 	if(hasUpgrade("hp",12))b=b.mul(upgradeEffect("hp",12));
 	if(hasUpgrade("ap",11))b=b.mul(upgradeEffect("ap",11));
+	if(player.t.activeChallenge==11||player.t.activeChallenge==21)b=b.pow(0.45);
 	if(player.ap.activeChallenge==22)b=b.add(1).log10().pow(100);
 	return b
 }
+
+function getPointGenString(){
+	return "("+format(getPointGen())+"/sec)";
+}
+
+function getPointSoftcapStart(){
+	var sc=new Decimal("ee9");
+	if(player.m.best.gte(105))sc=sc.pow(player.m.best.div(100));
+	if(player.t.activeChallenge==12)sc=sc.pow(0.0001);else sc=sc.pow(tmp.t.challenges[12].rewardEffect);
+	if(hasUpgrade("ap",32))sc=sc.pow(upgradeEffect("ap",32));
+	if(hasUpgrade("hb",11))sc=sc.pow(upgradeEffect("hb",11));
+	if(hasUpgrade("pb",31))sc=sc.pow(upgradeEffect("pb",31));
+	return sc;
+}
+
 
 // You can add non-layer related variables that should to into "player" and be saved here, along with default values
 function addedPlayerData() { return {
@@ -56,12 +80,18 @@ function addedPlayerData() { return {
 
 // Display extra things at the top of the page
 var displayThings = [
-	"Mod Author: qq1010903229 (loader3229)"
+	"Mod Author: qq1010903229 (loader3229)",
+	function(){
+		if(getPointGen().gte(getPointSoftcapStart().sqrt())){
+			return "1st milestone's effect ^"+format(getPointGen().log(getPointGenBeforeSoftcap()),4)+" because of softcap.<br>1st milestone's softcap starts at "+format(getPointSoftcapStart());
+		}
+		return "";
+	}
 ]
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.m.points.gte(99);
+	return player.m.points.gte(112);
 }
 
 
