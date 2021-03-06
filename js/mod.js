@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.112",
+	num: "1.120",
 	name: "",
 }
 
@@ -36,7 +36,15 @@ function canGenPoints(){
 function getPointGen() {
 	var b=getPointGenBeforeSoftcap();var sc=getPointSoftcapStart().log10();
 	if(b.gte(getPointSoftcapStart())){
-		b=Decimal.pow(10,b.log10().div(sc).pow(0.6).mul(sc));
+		if(player.t.activeChallenge==22){
+			return getPointSoftcapStart();
+		}
+		while(b.log10().gte(sc)){
+			let potency=0.4;
+			if(hasUpgrade("t",53))potency=potency*0.9;
+			b=Decimal.pow(10,b.log10().div(sc).pow(1-potency).mul(sc));
+			sc=sc.mul(20);
+		}
 	}
 	return b
 }
@@ -66,10 +74,13 @@ function getPointGenString(){
 function getPointSoftcapStart(){
 	var sc=new Decimal("ee9");
 	if(player.m.best.gte(105))sc=sc.pow(player.m.best.div(100));
-	if(player.t.activeChallenge==12)sc=sc.pow(0.0001);else sc=sc.pow(tmp.t.challenges[12].rewardEffect);
+	if(player.t.activeChallenge==12||player.t.activeChallenge==22)sc=sc.pow(0.0001);
+	sc=sc.pow(tmp.t.challenges[12].rewardEffect);
+	sc=sc.pow(tmp.t.challenges[22].rewardEffect);
 	if(hasUpgrade("ap",32))sc=sc.pow(upgradeEffect("ap",32));
 	if(hasUpgrade("hb",11))sc=sc.pow(upgradeEffect("hb",11));
 	if(hasUpgrade("pb",31))sc=sc.pow(upgradeEffect("pb",31));
+	if(hasUpgrade("t",54))sc=sc.pow(upgradeEffect("t",54));
 	return sc;
 }
 
@@ -91,7 +102,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.m.points.gte(112);
+	return player.m.points.gte(120);
 }
 
 
