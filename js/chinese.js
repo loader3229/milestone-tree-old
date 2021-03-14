@@ -520,19 +520,20 @@ layers.ap.challenges[21].name="无自加成挑战";
 layers.ap.challenges[22].name="点数减少挑战";
 layers.ap.challenges[31].name="无声望挑战";
 layers.ap.challenges[11].challengeDescription=function(){
-	return "你不能获得声望加成。<br>已完成"+challengeCompletions(this.layer, this.id) +"/15次"
+	return "你不能获得声望加成。<br>已完成"+format(challengeCompletions(this.layer, this.id),4) +"次"
 }
 layers.ap.challenges[12].challengeDescription=function(){
-	return "你不能获得超级声望点数。<br>已完成"+challengeCompletions(this.layer, this.id) +"/15次"
+	return "你不能获得超级声望点数。<br>已完成"+format(challengeCompletions(this.layer, this.id),4) +"次"
 }
 layers.ap.challenges[21].challengeDescription=function(){
-	return "第三个里程碑的效果始终为1。<br>已完成"+challengeCompletions(this.layer, this.id) +"/15次"
+	return "第三个里程碑的效果始终为1。<br>已完成"+format(challengeCompletions(this.layer, this.id),4) +"次"
 }
 layers.ap.challenges[22].challengeDescription=function(){
-	return "第一个里程碑的效果被替换为其常用对数的100次方。<br>已完成"+challengeCompletions(this.layer, this.id) +"/15次"
+	if(player.m.points.gte(122))return "第一个里程碑的效果被替换为其常用对数的(里程碑数量)次方。<br>已完成"+format(challengeCompletions(this.layer, this.id),4) +"次"
+	return "第一个里程碑的效果被替换为其常用对数的100次方。<br>已完成"+format(challengeCompletions(this.layer, this.id),4) +"次"
 }
 layers.ap.challenges[31].challengeDescription=function(){
-	return "你不能获得声望点数。<br>已完成"+challengeCompletions(this.layer, this.id) +"/15次"
+	return "你不能获得声望点数。<br>已完成"+format(challengeCompletions(this.layer, this.id),4) +"次"
 }
 layers.ap.challenges[11].currencyDisplayName="点数";
 layers.ap.challenges[12].currencyDisplayName="点数";
@@ -574,16 +575,16 @@ layers.t.challenges[12].name="软上限挑战";
 layers.t.challenges[21].name="声望膨胀挑战";
 layers.t.challenges[22].name="硬上限挑战";
 layers.t.challenges[11].challengeDescription=function(){
-	return "第一个里程碑的效果变为原来的0.45次方。<br>已完成"+challengeCompletions(this.layer, this.id) +"/4次"
+	return "第一个里程碑的效果变为原来的0.45次方。<br>已完成"+challengeCompletions(this.layer, this.id) +"/5次"
 }
 layers.t.challenges[12].challengeDescription=function(){
-	return "第一个里程碑的软上限开始得更早。<br>已完成"+challengeCompletions(this.layer, this.id) +"/3次"
+	return "第一个里程碑的软上限开始得更早。<br>已完成"+challengeCompletions(this.layer, this.id) +"/4次"
 }
 layers.t.challenges[21].challengeDescription=function(){
-	return "在“点数膨胀挑战”的基础上，声望点数的获得变为原来的0.45次方。<br>已完成"+challengeCompletions(this.layer, this.id) +"/3次"
+	return "在“点数膨胀挑战”的基础上，声望点数的获得变为原来的0.45次方。<br>已完成"+challengeCompletions(this.layer, this.id) +"/4次"
 }
 layers.t.challenges[22].challengeDescription=function(){
-	return "在“软上限挑战”的基础上，第一个里程碑的软上限变为硬上限。<br>已完成"+challengeCompletions(this.layer, this.id) +"/2次"
+	return "在“软上限挑战”的基础上，第一个里程碑的软上限变为硬上限。<br>已完成"+challengeCompletions(this.layer, this.id) +"/3次"
 }
 layers.t.challenges[11].currencyDisplayName="原子级挑战完成数";
 layers.t.challenges[12].currencyDisplayName="原子级挑战完成数";
