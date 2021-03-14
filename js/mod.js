@@ -12,8 +12,8 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.120",
-	name: "",
+	num: "1.125",
+	name: "Challenge Reworking",
 }
 
 let changelog = ``
@@ -63,7 +63,7 @@ function getPointGenBeforeSoftcap() {
 	if(hasUpgrade("hp",12))b=b.mul(upgradeEffect("hp",12));
 	if(hasUpgrade("ap",11))b=b.mul(upgradeEffect("ap",11));
 	if(player.t.activeChallenge==11||player.t.activeChallenge==21)b=b.pow(0.45);
-	if(player.ap.activeChallenge==22)b=b.add(1).log10().pow(100);
+	if(player.ap.activeChallenge==22)b=b.add(1).log10().pow(player.m.points.gte(122)?player.m.points:100);
 	return b
 }
 
@@ -81,6 +81,8 @@ function getPointSoftcapStart(){
 	if(hasUpgrade("hb",11))sc=sc.pow(upgradeEffect("hb",11));
 	if(hasUpgrade("pb",31))sc=sc.pow(upgradeEffect("pb",31));
 	if(hasUpgrade("t",54))sc=sc.pow(upgradeEffect("t",54));
+	sc=sc.pow(tmp.p.buyables[11].effect);
+	if(hasUpgrade("pe",11))sc=sc.pow(upgradeEffect("pe",11));
 	return sc;
 }
 
@@ -102,7 +104,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.m.points.gte(120);
+	return player.m.points.gte(125);
 }
 
 
