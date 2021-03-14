@@ -39,6 +39,7 @@
 		if(hasUpgrade("sp",31))firstScaling=firstScaling.div(upgradeEffect("sp",31));
 		if(hasUpgrade("hp",23))firstScaling=firstScaling.div(upgradeEffect("hp",23));
 		if(hasUpgrade("ap",23))firstScaling=firstScaling.div(upgradeEffect("ap",23));
+		if(hasUpgrade("pe",12))firstScaling=firstScaling.div(upgradeEffect("pe",12));
 		return new Decimal(2).add(firstScaling);
 	},
     getScalingStart(){
@@ -1048,7 +1049,47 @@
             unlocked() {return player[this.layer].best.gte(124)},
             done() {return player[this.layer].best.gte(125)}, // Used to determine when to give the milestone
             effectDescription:  function(){
-				return "Unlock a new layer. Reset on this layer doesn't reset anything. This layer doesn't reset on all resets including Transcend.";
+				return "Unlock a new layer. Reset on this layer doesn't reset anything. This layer doesn't reset on all resets including Transcend. Unlock a Transcend Challenge. Unlock a new row of Transcend upgrades.";
+			},
+        },
+		{
+			requirementDescription: "126th Milestone",
+            unlocked() {return player[this.layer].best.gte(125)},
+            done() {return player[this.layer].best.gte(126)}, // Used to determine when to give the milestone
+            effectDescription:  function(){
+				return "Auto-collect Prestige Energy.";
+			},
+        },
+		{
+			requirementDescription: "127th Milestone",
+            unlocked() {return player[this.layer].best.gte(126)},
+            done() {return player[this.layer].best.gte(127)}, // Used to determine when to give the milestone
+            effectDescription:  function(){
+				return "Gain additional 15% of Transcend Point gain per second (total 60%). Unlock a new row of Super-Prestige upgrades.";
+			},
+        },
+		{
+			requirementDescription: "128th Milestone",
+            unlocked() {return player[this.layer].best.gte(127)},
+            done() {return player[this.layer].best.gte(128)}, // Used to determine when to give the milestone
+            effectDescription:  function(){
+				return "Transcend Upgrade 54 is boosted. Unlock an AP challenge.";
+			},
+        },
+		{
+			requirementDescription: "129th Milestone",
+            unlocked() {return player[this.layer].best.gte(128)},
+            done() {return player[this.layer].best.gte(129)}, // Used to determine when to give the milestone
+            effectDescription:  function(){
+				return "Unlock a Super-Prestige buyable.";
+			},
+        },
+		{
+			requirementDescription: "130th Milestone",
+            unlocked() {return player[this.layer].best.gte(129)},
+            done() {return player[this.layer].best.gte(130)}, // Used to determine when to give the milestone
+            effectDescription:  function(){
+				return "Current Endgame";
 			},
         },
 	],
@@ -1101,7 +1142,7 @@
 		if(player.mm.best.gte(20)){
 			b=b.mul(player.mm.points.sub(2).max(1).pow(0.5).div(150).add(1));
 		}
-		b=b.mul(Decimal.pow(1.05,player.ap.challenges[21]+player.ap.challenges[22]+player.t.challenges[11]+player.t.challenges[21]));
+	b=b.mul(Decimal.pow(1.05,player.ap.challenges[21]+player.ap.challenges[22]+player.t.challenges[11]+player.t.challenges[21]+player.t.challenges[31]));
 		if(player.ap.challenges[21]>=1)b=b.mul(1.1/1.05);
 		if(player.ap.challenges[22]>=1)b=b.mul(1.06/1.05);
 		if(player.ap.challenges[21]>=5)b=b.mul(1.1/1.05);
@@ -1113,6 +1154,12 @@
 		}
 		if(hasUpgrade("p",42)){
 			b=b.mul(player.p.points.add(1e20).log10().log10().div(30).add(1));
+		}
+		if(hasUpgrade("sp",41)){
+			b=b.mul(player.sp.points.add(1e20).log10().log10().div(30).add(1));
+		}
+		if(hasUpgrade("sp",42)){
+			b=b.mul(player.sp.points.add(1e20).log10().log10().div(30).add(1));
 		}
 		return Decimal.pow(b,m);
 	},
@@ -1208,7 +1255,7 @@ addLayer("p", {
 		let m=layers.pb.effect();
 		if(hasUpgrade("t",12))m=m.mul(1.005);
 		if(hasUpgrade("t",32))m=m.mul(1.005);
-		if(player.t.activeChallenge==21)m=m.mul(0.45);
+		if(player.t.activeChallenge==21||player.t.activeChallenge==31)m=m.mul(tmp.t.dilationEffect);
 		return m;
     },
     row: 1, // Row the layer is in on the tree (0 is the first row)
@@ -1406,7 +1453,7 @@ addLayer("p", {
 			display(){
 				let data = tmp[this.layer].buyables[this.id];
 				return "Level: "+format(player[this.layer].buyables[this.id])+"<br>"+
-				"1st Milestone's softcap starts "+format(data.effect)+" later<br>"+
+				"1st Milestone's softcap starts "+format(data.effect)+"x later<br>"+
 				"Cost for Next Level: "+format(data.cost)+" Prestige points";
 			},
 			cost(){
@@ -1421,10 +1468,12 @@ addLayer("p", {
                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
                },
 			  effect(){
+				  if(player.ap.activeChallenge==32)return new Decimal(1);
 				  let b=0.03;
 				  if(hasUpgrade("p",43))b+=0.011;
 				  if(hasUpgrade("p",44))b+=0.011;
-				  let eff=new Decimal("1").add(player[this.layer].buyables[this.id].mul(b));
+				  let eff=new Decimal(1).add(player[this.layer].buyables[this.id].mul(b));
+				  eff=eff.pow(tmp.ap.challenges[32].rewardEffect);
 				  return eff;
 			  },
 			  unlocked(){
@@ -1492,6 +1541,7 @@ addLayer("sp", {
 		if(player.m.points.gte(27))mult=mult.mul(tmp.ap.challenges[12].rewardEffect);
 		if(hasUpgrade("t",13))mult=mult.mul(1.005);
 		if(hasUpgrade("t",33))mult=mult.mul(1.005);
+		if(player.t.activeChallenge==31)mult=mult.mul(tmp.t.dilationEffect);
         return mult
     },
     row: 2, // Row the layer is in on the tree (0 is the first row)
@@ -1501,7 +1551,7 @@ addLayer("sp", {
     ],
     layerShown(){return player.m.best.gte(25)},
 	upgrades: {
-        rows: 3,
+        rows: 4,
         cols: 4,
 		11: {
 			title: "Super-Prestige Upgrade 11",
@@ -1516,6 +1566,7 @@ addLayer("sp", {
 				if(player.m.points.gte(69))base+=5;
 				if(player.m.points.gte(79))base+=10;
 				if(player.m.points.gte(89))base+=5;
+				if(hasUpgrade("sp",44))base+=10;
                 let ret = Decimal.pow(base,Decimal.log10(player[this.layer].points.add(1)).pow(0.9).add(1))
                 return ret;
             },
@@ -1534,6 +1585,7 @@ addLayer("sp", {
 				if(player.m.points.gte(69))base+=1;
 				if(player.m.points.gte(79))base+=2;
 				if(player.m.points.gte(89))base+=1;
+				if(hasUpgrade("sp",44))base+=2;
                 let ret = Decimal.pow(base,Decimal.log10(player[this.layer].points.add(1)).pow(0.9).add(1))
                 return ret;
             },
@@ -1552,6 +1604,7 @@ addLayer("sp", {
 				if(player.m.points.gte(69))base+=0.58;
 				if(player.m.points.gte(79))base+=1;
 				if(player.m.points.gte(89))base+=0.5;
+				if(hasUpgrade("sp",44))base+=1;
                 let ret = Decimal.pow(base,Decimal.log10(player[this.layer].points.add(1)).pow(0.9).add(1))
                 return ret;
             },
@@ -1570,6 +1623,7 @@ addLayer("sp", {
 				if(player.m.points.gte(69))base+=0.5;
 				if(player.m.points.gte(79))base+=0.766;
 				if(player.m.points.gte(89))base+=0.234;
+				if(hasUpgrade("sp",44))base+=1;
                 let ret = Decimal.pow(base,Decimal.log10(player[this.layer].points.add(1)).pow(0.9).add(1))
                 return ret;
             },
@@ -1644,10 +1698,46 @@ addLayer("sp", {
             cost: new Decimal("1e13839"),
             unlocked() { return player.m.points.gte(55)}, // The upgrade is only visible when this is true
         },
+		41: {
+			title: "Super-Prestige Upgrade 41",
+            description: "Same as Super-Prestige Upgrade 24. To buy this upgrade, You need to complete AP challenge 2 15 times.",
+            cost(){
+				if(player.ap.challenges[12]<15)return new Decimal(Infinity);
+				return new Decimal("e447e8");
+			},
+            unlocked() { return player.m.points.gte(127)}, // The upgrade is only visible when this is true
+        },
+		42: {
+			title: "Super-Prestige Upgrade 42",
+            description: "Same as Super-Prestige Upgrade 24. To buy this upgrade, You need to complete AP challenge 4 21 times.",
+            cost(){
+				if(player.ap.challenges[22]<21)return new Decimal(Infinity);
+				return new Decimal("e478e8");
+			},
+            unlocked() { return player.m.points.gte(127)}, // The upgrade is only visible when this is true
+        },
+		43: {
+			title: "Super-Prestige Upgrade 43",
+            description: "First Super-Prestige buyable is cheaper. You can buy this upgrade while you're in AP challenge 6.",
+            cost(){
+				if(player.ap.activeChallenge!=32)return new Decimal(Infinity);
+				return new Decimal("e401e8");
+			},
+            unlocked() { return player.m.points.gte(127)}, // The upgrade is only visible when this is true
+        },
+		44: {
+			title: "Super-Prestige Upgrade 44",
+            description: "First row of Super-Prestige upgrades is boosted. You can buy this upgrade while you're in T challenge 5.",
+            cost(){
+				if(player.t.activeChallenge!=31)return new Decimal(Infinity);
+				return new Decimal("e1293e4");
+			},
+            unlocked() { return player.m.points.gte(127)}, // The upgrade is only visible when this is true
+        },
 	},
 	buyables: {
 		rows: 1,
-		cols: 1,
+		cols: 2,
 		11:{
 			title(){
 				return "Prestige Multiplier";
@@ -1660,7 +1750,11 @@ addLayer("sp", {
 			},
 			cost(){
 				let a=player[this.layer].buyables[this.id];
-				if(a.gte(3))a=a.div(3).pow(1.309).mul(3);
+				if(a.gte(3)){
+					let p=1.309;
+					if(hasUpgrade("sp",43))p-=0.029;
+					a=a.div(3).pow(p).mul(3);
+				}
 				return new Decimal("1e652955").mul(Decimal.pow("1e12345",a));
 			},
 			canAfford() {
@@ -1670,12 +1764,46 @@ addLayer("sp", {
                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
                },
 			  effect(){
+				  if(player.ap.activeChallenge==32)return new Decimal(1);
 				  let eff=new Decimal("1e10000").pow(player[this.layer].buyables[this.id]);
 				  if(hasUpgrade("hp",31))eff=eff.pow(1.05);
+				  eff=eff.pow(tmp.ap.challenges[32].rewardEffect);
 				  return eff;
 			  },
 			  unlocked(){
 				  return player.m.points.gte(77);
+			  }
+		},
+		12:{
+			title(){
+				return "Softcap Delayer";
+			},
+			display(){
+				let data = tmp[this.layer].buyables[this.id];
+				return "Level: "+format(player[this.layer].buyables[this.id])+"<br>"+
+				"1st Milestone's softcap starts "+format(data.effect)+"x later<br>"+
+				"Cost for Next Level: "+format(data.cost)+" Super-Prestige points";
+			},
+			cost(){
+				let a=player[this.layer].buyables[this.id];
+				a=Decimal.pow(2,a);
+				return new Decimal(1).mul(Decimal.pow("ee10",a));
+			},
+			canAfford() {
+                   return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost)
+			},
+               buy() { 
+                   player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
+               },
+			  effect(){
+				  if(player.ap.activeChallenge==32)return new Decimal(1);
+				  let b=0.02;
+				  let eff=new Decimal(1).add(player[this.layer].buyables[this.id].mul(b));
+				  eff=eff.pow(tmp.ap.challenges[32].rewardEffect);
+				  return eff;
+			  },
+			  unlocked(){
+				  return player.m.points.gte(129);
 			  }
 		},
 	},
@@ -1696,7 +1824,11 @@ addLayer("sp", {
 	update(){
 		if(player.m.points.gte(83)){
 			var target=player.sp.points.add(1).div("1e652955").log("1e12345");
-			if(target.gte(3))target=target.div(3).pow(1/1.309).mul(3);
+			if(target.gte(3)){
+				let p=1.309;
+				if(hasUpgrade("sp",43))p-=0.029;
+				target=target.div(3).pow(1/p).mul(3);
+			}
 			target=target.add(1).floor();
 			if(target.gt(player.sp.buyables[11])){
 				player.sp.buyables[11]=target;
@@ -1939,6 +2071,14 @@ addLayer("mm", {
             done() {return player[this.layer].best.gte(25)}, // Used to determine when to give the milestone
             effectDescription: function(){
 				return "Transcend Point gain is boosted based on your meta-milestones. Currently: x"+format(tmp.mm.meta25Effect);
+			},
+        },
+		{
+			requirementDescription: "26th Meta-Milestone",
+            unlocked() {return player[this.layer].best.gte(25)},
+            done() {return player[this.layer].best.gte(26)}, // Used to determine when to give the milestone
+            effectDescription: function(){
+				return "Prestige Energy gain is doubled";
 			},
         },
 	],
@@ -2348,9 +2488,11 @@ addLayer("hp", {
                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
                },
 			  effect(){
+				  if(player.ap.activeChallenge==32)return new Decimal(1);
 				  let eff=new Decimal("1e50000").pow(player[this.layer].buyables[this.id]);
 				  if(hasUpgrade("hp",32))eff=eff.pow(1.1);
 				  if(hasUpgrade("t",51))eff=eff.pow(2.1);
+				  eff=eff.pow(tmp.ap.challenges[32].rewardEffect);
 				  return eff;
 			  },
 			  unlocked(){
@@ -2379,8 +2521,10 @@ addLayer("hp", {
                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
                },
 			  effect(){
+				  if(player.ap.activeChallenge==32)return new Decimal(1);
 				  let eff=new Decimal("1e1000000").pow(player[this.layer].buyables[this.id]);
 				  if(hasUpgrade("ap",31))eff=eff.pow(1.5);
+				  eff=eff.pow(tmp.ap.challenges[32].rewardEffect);
 				  return eff;
 			  },
 			  unlocked(){
@@ -2588,7 +2732,7 @@ addLayer("ap", {
 		11:{
                 name: "No Prestige Boost",
                 completionLimit: Infinity,
-			    challengeDescription() {return "You can't gain prestige boosts.<br>"+format(challengeCompletions(this.layer, this.id)) +" completions"},
+			    challengeDescription() {return "You can't gain prestige boosts.<br>"+format(challengeCompletions(this.layer, this.id),4) +" completions"},
                 unlocked() { return hasUpgrade("ap",22) && hasUpgrade("ap",21) },
                 goal: function(){
 					if(player.m.points.gte(120))return this.goalAfter120(Math.ceil(player.ap.challenges[11]+0.001));
@@ -2611,7 +2755,7 @@ addLayer("ap", {
 		12:{
                 name: "No Super-Prestige",
                 completionLimit: Infinity,
-			    challengeDescription() {return "You can't gain super-prestige points.<br>"+format(challengeCompletions(this.layer, this.id)) +" completions"},
+			    challengeDescription() {return "You can't gain super-prestige points.<br>"+format(challengeCompletions(this.layer, this.id),4) +" completions"},
                 unlocked() { return hasUpgrade("ap",22) && hasUpgrade("ap",22) },
                 goal: function(){
 					if(player.m.points.gte(120))return this.goalAfter120(Math.ceil(player.ap.challenges[12]+0.001));
@@ -2643,7 +2787,7 @@ addLayer("ap", {
 		21:{
                 name: "No Self-Boost",
                 completionLimit: Infinity,
-			    challengeDescription() {return "3rd milestone's effect is always 1.<br>"+format(challengeCompletions(this.layer, this.id)) +" completions"},
+			    challengeDescription() {return "3rd milestone's effect is always 1.<br>"+format(challengeCompletions(this.layer, this.id),4) +" completions"},
                 unlocked() { return hasUpgrade("ap",22) && hasUpgrade("ap",23) },
                 goal: function(){
 					if(player.m.points.gte(120))return this.goalAfter120(Math.ceil(player.ap.challenges[21]+0.001));
@@ -2667,8 +2811,8 @@ addLayer("ap", {
                 name: "Reduced Points",
                 completionLimit: Infinity,
 			    challengeDescription() {
-			if(player.m.points.gte(122))return "1st milestone's effect is replaced by (log10(1st milestone's effect+1))^(milestones)<br>"+format(challengeCompletions(this.layer, this.id)) +" completions";
-			return "1st milestone's effect is replaced by (log10(1st milestone's effect+1))^100<br>"+format(challengeCompletions(this.layer, this.id)) +" completions";
+			if(player.m.points.gte(122))return "1st milestone's effect is replaced by (log10(1st milestone's effect+1))^(milestones)<br>"+format(challengeCompletions(this.layer, this.id),4) +" completions";
+			return "1st milestone's effect is replaced by (log10(1st milestone's effect+1))^100<br>"+format(challengeCompletions(this.layer, this.id),4) +" completions";
 		},
                 unlocked() { return hasUpgrade("ap",22) && hasUpgrade("ap",24) },
                 goal: function(){
@@ -2697,7 +2841,7 @@ addLayer("ap", {
 		31:{
                 name: "No Prestige",
                 completionLimit: Infinity,
-			    challengeDescription() {return "You can't gain prestige points.<br>"+format(challengeCompletions(this.layer, this.id)) +" completions"},
+			    challengeDescription() {return "You can't gain prestige points.<br>"+format(challengeCompletions(this.layer, this.id),4) +" completions"},
                 unlocked() { return player.m.points.gte(95) },
                 goal: function(){
 					if(player.m.points.gte(120))return this.goalAfter120(Math.ceil(player.ap.challenges[31]+0.001));
@@ -2714,6 +2858,32 @@ addLayer("ap", {
 		},
 		goalAfter120(x=player.ap.challenges[31]){
 			return Decimal.pow(10,Decimal.pow(1.2,Decimal.pow(x,1.36)).mul(1700000));
+		},
+		
+		},
+		32:{
+                name: "Disabled Buyables",
+                completionLimit: Infinity,
+			    challengeDescription() {return "All Prestige, Super-Prestige and Hyper-Prestige buyables have no effect.<br>"+format(challengeCompletions(this.layer, this.id),4) +" completions"},
+                unlocked() { return player.m.points.gte(128) },
+                goal: function(){
+					return this.goalAfter120(Math.ceil(player.ap.challenges[32]+0.002));
+				},
+                currencyDisplayName: "points",
+                currencyInternalName: "points",
+				rewardEffect() {
+                    let ret = 1+player.ap.challenges[32]*0.05;
+                    return ret;
+                },
+                rewardDisplay() { return "Effect of All Prestige, Super-Prestige and Hyper-Prestige Buyables ^"+format(this.rewardEffect()) },
+                rewardDescription() { return "Effect of All Prestige, Super-Prestige and Hyper-Prestige Buyables is better." },
+		completionsAfter120(){
+			let p=player.points;
+			if(p.lte("e3e10"))return 0;
+			return p.log10().div(3e10).log(1.2).pow(1/1.5).toNumber();
+		},
+		goalAfter120(x=player.ap.challenges[31]){
+			return Decimal.pow(10,Decimal.pow(1.2,Decimal.pow(x,1.5)).mul(3e10));
 		},
 		
 		},
@@ -2785,8 +2955,8 @@ addLayer("t", {
 		if(player.mm.points.gte(24))amt=amt.mul(2);
 		if(player.mm.points.gte(25))amt=amt.mul(tmp.mm.meta25Effect);
 		amt=amt.floor();
-		if(amt.gte(Decimal.sub(2e10,player.t.points))){
-			amt=Decimal.sub(2e10,player.t.points).ceil().max(0);
+		if(amt.gte(Decimal.sub(2e11,player.t.points))){
+			amt=Decimal.sub(2e11,player.t.points).ceil().max(0);
 		}
 		return amt;
 	},
@@ -2808,7 +2978,7 @@ addLayer("t", {
 		return amt;
 	},
 	upgrades: {
-        rows: 5,
+        rows: 6,
 		cols: 4,
 		11: {
 			title: "Transcend Upgrade 11",
@@ -2922,9 +3092,21 @@ addLayer("t", {
             cost: new Decimal(1.2e7),
 			unlocked(){return player.m.points.gte(111);},
 			effect(){
-				return new Decimal(1).plus(player.t.points.add(10).log10().pow(0.8).mul(0.05));
+				let p=0.8;
+				let m=0.05;
+				if(player.m.points.gte(128)){
+					p+=0.1;
+				}
+				let eff=player.t.points.add(10).log10().pow(p).mul(m);
+				return new Decimal(1).plus(eff);
 			},
             effectDisplay() { return format(this.effect(),4)+"x later" },
+        },
+		61: {
+			title: "Transcend Upgrade 61",
+            description(){return "All Dilation Effects +0.05"},
+            cost: new Decimal(1e10),
+			unlocked(){return player.m.points.gte(125);},
         },
 	},
 	
@@ -2933,8 +3115,8 @@ addLayer("t", {
 		cols: 2,
 		11:{
                 name: "Dilation",
-                completionLimit: 5,
-			    challengeDescription() {return "1st milestone's effect ^0.45<br>"+challengeCompletions(this.layer, this.id) +"/5 completions"},
+                completionLimit: 6,
+			    challengeDescription() {return "1st milestone's effect ^"+format(tmp.t.dilationEffect)+"<br>"+challengeCompletions(this.layer, this.id) +"/6 completions"},
                 unlocked() { return true },
                 goal: function(){
 					if(player.m.points.gte(110))return (player.t.challenges[11]+1)*(player.t.challenges[11]+1);
@@ -2979,8 +3161,8 @@ addLayer("t", {
 		},
 		21:{
                 name: "Prestige Dilation",
-                completionLimit: 4,
-			    challengeDescription() {return "1st milestone's effect and prestige point gain ^0.45<br>"+challengeCompletions(this.layer, this.id) +"/4 completions"},
+                completionLimit: 5,
+			    challengeDescription() {return "1st milestone's effect and prestige point gain ^"+format(tmp.t.dilationEffect)+"<br>"+challengeCompletions(this.layer, this.id) +"/5 completions"},
                 unlocked() { return player.m.points.gte(109) },
                 goal: function(){
 					return (player.t.challenges[21]+1)*(player.t.challenges[21]+1);
@@ -3018,9 +3200,27 @@ addLayer("t", {
                 currencyDisplayName: "AP challenge completions",
                 rewardDescription() { return "1st milestone's softcap starts later." },
 		},
+		31:{
+                name: "Super Dilation",
+                completionLimit: 5,
+			    challengeDescription() {return "1st milestone's effect, prestige point gain and super-prestige point gain ^"+format(tmp.t.dilationEffect)+"<br>"+challengeCompletions(this.layer, this.id) +"/5 completions"},
+                unlocked() { return player.m.points.gte(125) },
+                goal: function(){
+					return (player.t.challenges[31]+1)*(player.t.challenges[31]+1);
+				},
+				canComplete(){
+					let c=0;
+					for(var i in player.ap.challenges)c+=player.ap.challenges[i];
+					if(c>=tmp.t.challenges[this.id].goal)return true;
+					return false;
+				},
+                currencyDisplayName: "AP challenge completions",
+                rewardDescription() { return "3rd milestone's effect is better." },
+		},
 	},
 	
 	passiveGeneration(){
+		if(player.m.points.gte(127))return 0.6;
 		if(player.m.points.gte(123))return 0.45;
 		if(player.m.points.gte(120))return 0.3;
 		if(player.m.points.gte(119))return 0.2;
@@ -3031,11 +3231,16 @@ addLayer("t", {
 		return 0;
 	},
 	tabFormat: ["main-display","prestige-button","resource-display",
-				["display-text",function(){return "Transcend point is hardcapped at "+format(2e10)}],
+				["display-text",function(){return "Transcend point is hardcapped at "+format(2e11)}],
 				"upgrades","challenges"
 				],
 	update(){
-		if(player.t.points.gte(2e10))player.t.points=new Decimal(2e10);
+		if(player.t.points.gte(2e11))player.t.points=new Decimal(2e11);
+	},
+	dilationEffect(){
+		let eff=0.45;
+		if(hasUpgrade("t",61))eff+=0.05;
+		return eff;
 	}
 })
 
@@ -3193,30 +3398,62 @@ addLayer("pe", {
     },
     row: 2, // Row the layer is in on the tree (0 is the first row)
     hotkeys: [
-        {key: "E", description: "E: prestige energy reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "E", description: "E: Collect Prestige Energy", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return player.m.best.gte(125)},
 	branches: ["p"],
-	base: new Decimal("10"),
+	base: function(){
+		let b=new Decimal("10");
+		if(player.mm.points.gte(26))b=b.sqrt();
+		return b;
+	},
 	exponent: function(){
 		return new Decimal(1);
 	},
 	resetsNothing:true,
 	doReset(l){},
 	canBuyMax:true,
-	//autoPrestige(){return player.m.points.gte(116)},
+	autoPrestige(){return player.m.points.gte(126)},
 	upgrades: {
         rows: 1,
-        cols: 1,
+        cols: 4,
 		11: {
 			title: "Prestige Energy Upgrade 11",
             description: "1st Milestone's softcap starts later based on your prestige energy.",
             cost: new Decimal(2.48e11),
             unlocked() { return true}, // The upgrade is only visible when this is true
 			effect() {
-				return player.pe.points.add(1).log10().div(100).add(1);
+				let b=player.pe.points.add(1).log10().div(100);
+				if(hasUpgrade("pe",13))b=b.mul(1.5);
+				return b.add(1);
             },
-            effectDisplay() { return format(this.effect())+"x later" }, // Add formatting to the effect
+            effectDisplay() { return format(this.effect(),4)+"x later" }, // Add formatting to the effect
         },
-	}
+		12: {
+			title: "Prestige Energy Upgrade 12",
+            description: "Milestone Cost Scaling is weaker based on your prestige energy.",
+            cost: new Decimal(2.77e11),
+            unlocked() { return true}, // The upgrade is only visible when this is true
+			effect() {
+				let b=player.pe.points.add(1).log10().div(200);
+				if(hasUpgrade("pe",14))b=b.mul(1.5);
+				return b.add(1);
+            },
+            effectDisplay() { return format(this.effect(),4)+"x weaker" }, // Add formatting to the effect
+        },
+		13: {
+			title: "Prestige Energy Upgrade 13",
+            description: "Prestige Energy Upgrade 11 is boosted.",
+            cost: new Decimal(5.98e11),
+            unlocked() { return true}, // The upgrade is only visible when this is true
+        },
+		14: {
+			title: "Prestige Energy Upgrade 14",
+            description: "Prestige Energy Upgrade 12 is boosted.",
+            cost: new Decimal(7.94e11),
+            unlocked() { return true}, // The upgrade is only visible when this is true
+        },
+	},
+	
+    resetDescription: "Collect ",
 })

@@ -397,6 +397,11 @@ layers.p.upgrades[23].description=layers.p.upgrades[24].description="基于你�
 layers.p.upgrades[31].description="基于你的声望点数，里程碑成本快速增加的效果变得更慢。";
 layers.p.upgrades[32].description=layers.p.upgrades[33].description=layers.p.upgrades[34].description="声望升级31的效果变得更好。";
 layers.p.upgrades[31].effectDisplay=function(){return format(this.effect(),4)+"x";}
+layers.p.upgrades[41].description="这个升级和声望升级23的效果一样，但是你需要通过19.7次原子级挑战4才能购买这个升级。";
+layers.p.upgrades[42].description="这个升级和声望升级23的效果一样，但是你需要通过14.1次原子级挑战3才能购买这个升级。";
+layers.p.upgrades[43].description="第一个声望可重复购买项的效果更好，你需要在超越挑战2里面购买这个升级。";
+layers.p.upgrades[44].description="第一个声望可重复购买项的效果更好，你需要在超越挑战4里面购买这个升级。";
+layers.p.upgrades[44].currencyDisplayName="点数";
 
 layers.p.upgrades.cols=5;
 layers.p.upgrades[15]={
@@ -575,13 +580,13 @@ layers.t.challenges[12].name="软上限挑战";
 layers.t.challenges[21].name="声望膨胀挑战";
 layers.t.challenges[22].name="硬上限挑战";
 layers.t.challenges[11].challengeDescription=function(){
-	return "第一个里程碑的效果变为原来的0.45次方。<br>已完成"+challengeCompletions(this.layer, this.id) +"/5次"
+	return "第一个里程碑的效果变为原来的"+format(tmp.t.dilationEffect)+"次方。<br>已完成"+challengeCompletions(this.layer, this.id) +"/5次"
 }
 layers.t.challenges[12].challengeDescription=function(){
-	return "第一个里程碑的软上限开始得更早。<br>已完成"+challengeCompletions(this.layer, this.id) +"/4次"
+	return "第一个里程碑的软上限开始得更早。<br>已完成"+challengeCompletions(this.layer, this.id) +"/5次"
 }
 layers.t.challenges[21].challengeDescription=function(){
-	return "在“点数膨胀挑战”的基础上，声望点数的获得变为原来的0.45次方。<br>已完成"+challengeCompletions(this.layer, this.id) +"/4次"
+	return "在“点数膨胀挑战”的基础上，声望点数的获得变为原来的"+format(tmp.t.dilationEffect)+"次方。<br>已完成"+challengeCompletions(this.layer, this.id) +"/4次"
 }
 layers.t.challenges[22].challengeDescription=function(){
 	return "在“软上限挑战”的基础上，第一个里程碑的软上限变为硬上限。<br>已完成"+challengeCompletions(this.layer, this.id) +"/3次"
@@ -597,7 +602,7 @@ layers.t.challenges[12].rewardDescription=function(){
 }
 layers.t.challenges[22].rewardDescription="第一个里程碑的软上限开始得更迟。";
 layers.t.tabFormat[3][1]=function(){
-	return "超越点数的硬上限为"+format(2e8);
+	return "超越点数的硬上限为"+format(2e10);
 }
 
 layers.hb.resource="超级加成";
@@ -695,6 +700,7 @@ var cnRegReplace = new Map([
 	[/(.+)\/ Infinity(.+)/, '$1/ 无限$2'],
 	[/You are gaining(.+)per second/, '你正在获得$1每秒'],
 	[/\((.+)\/sec\)/, '($1/秒)'],
+	[/Cost: Infinity(.+)/, '花费：无限$1'],
 	[/Cost:(.+)/, '花费：$1'],
 	[/Currently:(.+)/, '当前：$1'],
 	[/Reward:(.+)/, '奖励：$1'],
