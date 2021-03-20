@@ -73,7 +73,7 @@ function getPointGenString(){
 
 function getPointSoftcapStart(){
 	var sc=new Decimal("ee9");
-	if(player.m.best.gte(105))sc=sc.pow(player.m.best.div(100));
+	if(player.m.best.gte(105))sc=sc.pow(tmp.m.milestone105Effect);
 	if(player.t.activeChallenge==12||player.t.activeChallenge==22)sc=sc.pow(0.0001);
 	sc=sc.pow(tmp.t.challenges[12].rewardEffect);
 	sc=sc.pow(tmp.t.challenges[22].rewardEffect);
