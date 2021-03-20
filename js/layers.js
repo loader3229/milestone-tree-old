@@ -1124,6 +1124,14 @@
 				return "Keep Hyper Boost upgrades on Transcend.";
 			},
         },
+		{
+			requirementDescription: "135th Milestone",
+            unlocked() {return player[this.layer].best.gte(134)},
+            done() {return player[this.layer].best.gte(135)}, // Used to determine when to give the milestone
+            effectDescription:  function(){
+				return "Current Endgame";
+			},
+        },
 	],
 	milestone3Effect(){
 		if(player.ap.activeChallenge==21)return new Decimal(1);
