@@ -12,8 +12,8 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.130",
-	name: "Prestige Energetic",
+	num: "1.135",
+	name: "Dilated Transcension",
 }
 
 let changelog = ``
@@ -105,7 +105,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.m.points.gte(130);
+	return player.m.points.gte(135);
 }
 
 
