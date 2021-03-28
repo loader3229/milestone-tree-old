@@ -31,7 +31,7 @@ layers.m.milestones[3-1].effectDescription=function(){
 	return "基于你的点数，第一个里程碑的效果变得更好。当前："+format(tmp.m.milestone3Effect)+"x";
 }
 layers.m.milestones[4-1].effectDescription=function(){
-	return "基于你的总里程碑数量，第三个里程碑的效果变得更好。";
+	return "基于你的总里程碑数量，第三个里程碑的效果变得更好。当前：第三个里程碑的基础效果基数 +"+format(tmp.m.milestone3Effect);
 }
 layers.m.milestones[5-1].effectDescription=function(){
 	return "解锁下一个层级。里程碑不会被重置。";
@@ -296,19 +296,21 @@ layers.m.milestones[100-1].effectDescription="在超越时保留声望升级和�
 layers.m.milestones[101-1].effectDescription="在超越时保留第三级声望升级和声望加成升级。";
 layers.m.milestones[102-1].effectDescription="在超越时保留原子级声望升级。";
 layers.m.milestones[103-1].effectDescription="在超越时自动完成原子级挑战1-5各3次，除非你在一个超越挑战里面。";
-layers.m.milestones[104-1].effectDescription="第四个里程碑的效果变得更好。解锁一个层级。解锁4个新的超越升级。";
-layers.m.milestones[105-1].effectDescription="基于你的总里程碑数量，第一个里程碑的软上限开始的更迟。解锁一个第三级声望可重复购买项。解锁一个超越挑战。";
+layers.m.milestones[104-1].effectDescription="第四个里程碑的效果变得更好。解锁一个层级。解锁4个新的超越升级。解锁一个第三级声望可重复购买项。解锁一个超越挑战。";
+layers.m.milestones[105-1].effectDescription=function(){
+	return "基于你的总里程碑数量，第一个里程碑的软上限开始的更迟。当前："+format(tmp.m.milestone105Effect)+"x";
+}
 layers.m.milestones[106-1].effectDescription="第6个和第27个里程碑的效果变为原来的(元里程碑数量的0.5次方)次方。";
 layers.m.milestones[107-1].effectDescription="第三个里程碑的基础效果指数变为原来的1.002次方。自动购买第二个第三级声望可重复购买项。";
 layers.m.milestones[108-1].effectDescription="在超越时自动完成原子级挑战1-5各6次，除非你在一个超越挑战里面。";
 layers.m.milestones[109-1].effectDescription="第四个里程碑的效果变得更好。解锁一个超越挑战。";
-layers.m.milestones[110-1].effectDescription="超越挑战1的基础目标变为x^2。你可以在不退出原子级挑战的情况下完成它。";
+layers.m.milestones[110-1].effectDescription="每秒获得重置可以获得的超越点数的0.2%。超越挑战1的基础目标变为x^2。你可以在不退出原子级挑战的情况下完成它。";
 layers.m.milestones[111-1].effectDescription="在获得超级加成时不会重置。声望加成变得更便宜了。解锁4个新的声望加成升级。解锁4个新的超越升级。";
 layers.m.milestones[112-1].effectDescription="超越挑战2的奖励在进行超越挑战2时生效。";
-layers.m.milestones[113-1].effectDescription="第6个和第27个里程碑的效果变为原来的(元里程碑数量的0.3次方)次方。";
+layers.m.milestones[113-1].effectDescription="每秒额外获得重置可以获得的超越点数的0.3%，总计0.5%。第6个和第27个里程碑的效果变为原来的(元里程碑数量的0.3次方)次方。";
 layers.m.milestones[114-1].effectDescription="在超越时自动完成原子级挑战1-5各9次，除非你在一个超越挑战里面。";
-layers.m.milestones[115-1].effectDescription="每秒获得重置可以获得的超越点数的0.5%。解锁一个超越挑战。";
-layers.m.milestones[116-1].effectDescription="每秒额外获得重置可以获得的超越点数的1.5%，总计2%。自动获得超级加成。";
+layers.m.milestones[115-1].effectDescription="每秒额外获得重置可以获得的超越点数的0.5%，总计1%。解锁一个超越挑战。";
+layers.m.milestones[116-1].effectDescription="每秒额外获得重置可以获得的超越点数的1%，总计2%。自动获得超级加成。";
 layers.m.milestones[117-1].effectDescription="每秒额外获得重置可以获得的超越点数的3%，总计5%。声望加成变得更便宜了。";
 layers.m.milestones[118-1].effectDescription="每秒额外获得重置可以获得的超越点数的5%，总计10%。第四个里程碑的效果变得更好。";
 layers.m.milestones[119-1].effectDescription="每秒额外获得重置可以获得的超越点数的10%，总计20%。超级加成变得更便宜了。";
@@ -324,6 +326,7 @@ layers.m.milestones[128-1].effectDescription="超越升级54的效果变得更�
 layers.m.milestones[129-1].effectDescription="解锁一个超级声望可重复购买项。";
 layers.m.milestones[130-1].effectDescription="每秒额外获得重置可以获得的超越点数的20%，总计80%。自动购买第二个超级声望可重复购买项。原子级挑战1-3和6的目标减少了。解锁一个新的超越标签页。";
 layers.m.milestones[131-1].effectDescription="在超越时自动完成原子级挑战1-5各15次，除非你在一个超越挑战里面。";
+layers.m.milestones[132-1].effectDescription="第二个超级声望可重复购买项的效果变得更好。解锁4个新的声望加成升级。";
 
 layers.m.tabFormat[3][1]=function(){
 	return "里程碑成本快速增加在"+format(tmp.m.getScalingStart,4)+"开始";
@@ -604,40 +607,46 @@ layers.t.upgrades[61].description="所有的膨胀挑战效果+0.05。";
 layers.t.upgrades[62].description="基于你的超越点数，原子级声望点数的获得变得更好。";
 layers.t.upgrades[63].description="基于你的超越点数，超越点数的获得变得更好。";
 layers.t.upgrades[64].description=function(){return "使超级加成的价格除以"+format("1e300000")};
+layers.t.upgrades[71].description=function(){return "使超级加成的价格除以"+format("1e30000")};
 
 layers.t.challenges[11].name="点数膨胀挑战";
 layers.t.challenges[12].name="软上限挑战";
 layers.t.challenges[21].name="声望膨胀挑战";
 layers.t.challenges[22].name="硬上限挑战";
 layers.t.challenges[31].name="超级膨胀挑战";
+layers.t.challenges[32].name="声望硬上限挑战";
 layers.t.challenges[11].challengeDescription=function(){
-	return "第一个里程碑的效果变为原来的"+format(tmp.t.dilationEffect)+"次方。<br>已完成"+challengeCompletions(this.layer, this.id) +"/6次"
+	return "第一个里程碑的效果变为原来的"+format(tmp.t.dilationEffect)+"次方。<br>已完成"+challengeCompletions(this.layer, this.id) +"/7次"
 }
 layers.t.challenges[12].challengeDescription=function(){
-	return "第一个里程碑的软上限开始得更早。<br>已完成"+challengeCompletions(this.layer, this.id) +"/5次"
+	return "第一个里程碑的软上限开始得更早。<br>已完成"+challengeCompletions(this.layer, this.id) +"/6次"
 }
 layers.t.challenges[21].challengeDescription=function(){
-	return "在“点数膨胀挑战”的基础上，声望点数的获得变为原来的"+format(tmp.t.dilationEffect)+"次方。<br>已完成"+challengeCompletions(this.layer, this.id) +"/5次"
+	return "在“点数膨胀挑战”的基础上，声望点数的获得变为原来的"+format(tmp.t.dilationEffect)+"次方。<br>已完成"+challengeCompletions(this.layer, this.id) +"/6次"
 }
 layers.t.challenges[22].challengeDescription=function(){
 	return "在“软上限挑战”的基础上，第一个里程碑的软上限变为硬上限。<br>已完成"+challengeCompletions(this.layer, this.id) +"/4次"
 }
 layers.t.challenges[31].challengeDescription=function(){
-	return "在“声望膨胀挑战”的基础上，超级声望点数的获得变为原来的"+format(tmp.t.dilationEffect)+"次方。<br>已完成"+challengeCompletions(this.layer, this.id) +"/5次"
+	return "在“声望膨胀挑战”的基础上，超级声望点数的获得变为原来的"+format(tmp.t.dilationEffect)+"次方。<br>已完成"+challengeCompletions(this.layer, this.id) +"/6次"
+}
+layers.t.challenges[32].challengeDescription=function(){
+	return "在“硬上限挑战”的基础上，声望点数的获得受第一个里程碑的软上限影响。<br>已完成"+challengeCompletions(this.layer, this.id) +"/4次"
 }
 layers.t.challenges[11].currencyDisplayName="原子级挑战完成数";
 layers.t.challenges[12].currencyDisplayName="原子级挑战完成数";
 layers.t.challenges[21].currencyDisplayName="原子级挑战完成数";
 layers.t.challenges[22].currencyDisplayName="原子级挑战完成数";
 layers.t.challenges[31].currencyDisplayName="原子级挑战完成数";
+layers.t.challenges[32].currencyDisplayName="原子级挑战完成数";
 layers.t.challenges[11].rewardDescription=layers.t.challenges[21].rewardDescription=layers.t.challenges[31].rewardDescription="第三个里程碑的效果变得更好。";
 layers.t.challenges[12].rewardDescription=function(){ 
 	if(player.m.points.lt(112))return "第一个里程碑的软上限开始得更迟。当你在这个挑战里面时这个奖励无效。";
 	else return "第一个里程碑的软上限开始得更迟。";
 }
-layers.t.challenges[22].rewardDescription="第一个里程碑的软上限开始得更迟。";
+layers.t.challenges[22].rewardDescription=layers.t.challenges[32].rewardDescription="第一个里程碑的软上限开始得更迟。";
 layers.t.tabFormat.Main.content[3][1]=function(){
-	return "超越点数的硬上限为"+format(8e12);
+	return "超越点数的硬上限为"+format(3e14);
 }
 
 layers.hb.resource="超级加成";

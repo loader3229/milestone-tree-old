@@ -12,8 +12,8 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.135",
-	name: "Dilated Transcension",
+	num: "1.141",
+	name: "Softcapped Transcension",
 }
 
 let changelog = ``
@@ -36,7 +36,7 @@ function canGenPoints(){
 function getPointGen() {
 	var b=getPointGenBeforeSoftcap();var sc=getPointSoftcapStart().log10();
 	if(b.gte(getPointSoftcapStart())){
-		if(player.t.activeChallenge==22){
+		if(player.t.activeChallenge==22||player.t.activeChallenge==32){
 			return getPointSoftcapStart();
 		}
 		while(b.log10().gte(sc)){
@@ -74,9 +74,10 @@ function getPointGenString(){
 function getPointSoftcapStart(){
 	var sc=new Decimal("ee9");
 	if(player.m.best.gte(105))sc=sc.pow(tmp.m.milestone105Effect);
-	if(player.t.activeChallenge==12||player.t.activeChallenge==22)sc=sc.pow(0.0001);
+	if(player.t.activeChallenge==12||player.t.activeChallenge==22||player.t.activeChallenge==32)sc=sc.pow(0.0001);
 	sc=sc.pow(tmp.t.challenges[12].rewardEffect);
 	sc=sc.pow(tmp.t.challenges[22].rewardEffect);
+	sc=sc.pow(tmp.t.challenges[32].rewardEffect);
 	if(hasUpgrade("ap",32))sc=sc.pow(upgradeEffect("ap",32));
 	if(hasUpgrade("hb",11))sc=sc.pow(upgradeEffect("hb",11));
 	if(hasUpgrade("pb",31))sc=sc.pow(upgradeEffect("pb",31));
@@ -84,6 +85,8 @@ function getPointSoftcapStart(){
 	sc=sc.pow(tmp.p.buyables[11].effect);
 	if(hasUpgrade("pe",11))sc=sc.pow(upgradeEffect("pe",11));
 	sc=sc.pow(tmp.sp.buyables[12].effect);
+	sc=sc.pow(layers.t.getSpecialEffect(12));
+	if(hasUpgrade("t",73))sc=sc.pow(upgradeEffect("t",73));
 	return sc;
 }
 
@@ -105,7 +108,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.m.points.gte(135);
+	return player.m.points.gte(141);
 }
 
 
