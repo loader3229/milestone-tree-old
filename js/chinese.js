@@ -8,6 +8,8 @@
 	}
 ]
 
+modInfo.name="里程碑之树"
+
 winText="你暂时已经达到了这个树MOD的残局，但是现在...";
 
 layers.m.resource="里程碑";

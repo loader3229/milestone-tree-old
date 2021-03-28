@@ -27,6 +27,7 @@
 </head>
 
 <body onload="load()">
+	<script>setInterval('document.title=modInfo.name+" v"+VERSION.num',100);</script>
 	<div id="app">
 		<canvas id="treeCanvas" class="canvas" v-if="!(gameEnded && !player.keepGoing)"></canvas>
 
