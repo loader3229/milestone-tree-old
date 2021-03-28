@@ -2468,7 +2468,7 @@ addLayer("pb", {
 				let p=player.sp.points.add(1e20).log10().log10().div(200);
 				return p.add(1);
             },
-            effectDisplay() { return format(this.effect(),4)+"x later" },
+            effectDisplay() { return format(this.effect(),4)+"x" },
         },
 		42: {
 			title: "Prestige Boost Upgrade 42",
@@ -3886,7 +3886,7 @@ addLayer("pe", {
 				if(hasUpgrade("pe",22))b=b.mul(1.5);
 				return b.add(1);
             },
-            effectDisplay() { return format(this.effect(),4)+"x weaker" }, // Add formatting to the effect
+            effectDisplay() { return format(this.effect(),4)+"x" }, // Add formatting to the effect
         },
 		13: {
 			title: "Prestige Energy Upgrade 13",
