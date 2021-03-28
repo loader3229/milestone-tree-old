@@ -1177,6 +1177,14 @@
 				return "You can complete a T challenge without exiting it.";
 			},
         },
+		{
+			requirementDescription: "141st Milestone",
+            unlocked() {return player[this.layer].best.gte(140)},
+            done() {return player[this.layer].best.gte(141)}, // Used to determine when to give the milestone
+            effectDescription:  function(){
+				return "Current Endgame";
+			},
+        },
 	],
 	milestone4EffectExponent(){
 		if(player.m.best.gte(118))return 0.8;
