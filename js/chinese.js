@@ -616,7 +616,7 @@ layers.t.challenges[22].name="硬上限挑战";
 layers.t.challenges[31].name="超级膨胀挑战";
 layers.t.challenges[32].name="声望硬上限挑战";
 layers.t.challenges[11].challengeDescription=function(){
-	return "第一个里程碑的效果变为原来的"+format(tmp.t.dilationEffect)+"次方。<br>已完成"+challengeCompletions(this.layer, this.id) +"/7次"
+	return "第一个里程碑的效果变为原来的"+format(tmp.t.dilationEffect)+"次方。<br>已完成"+challengeCompletions(this.layer, this.id) +"/9次"
 }
 layers.t.challenges[12].challengeDescription=function(){
 	return "第一个里程碑的软上限开始得更早。<br>已完成"+challengeCompletions(this.layer, this.id) +"/6次"
