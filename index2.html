@@ -23,12 +23,12 @@
 	<script src="js/utils/options.js"></script>
 	<script src="js/utils/save.js"></script>
 	<script src="js/utils/themes.js"></script>
-	<script src="js/chinese.js?1.131b"></script>
+	<script src="js/chinese.js?1.141c1"></script>
 </head>
 
 <body onload="load()">
 	<script src="https://likexia.gitee.io/game/zh/core.js"></script>
-	<script>setInterval('document.title=modInfo.name+" v"+VERSION.num',100);</script>
+	<script>setInterval('document.title=modInfo.name+" v"+VERSION.num+"c"+VERSION.cnum',100);</script>
 	<div id="app">
 		<canvas id="treeCanvas" class="canvas" v-if="!(gameEnded && !player.keepGoing)"></canvas>
 

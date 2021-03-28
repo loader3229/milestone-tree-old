@@ -1,4 +1,10 @@
-﻿displayThings = [
+﻿modInfo.name="里程碑之树";
+VERSION.name="";
+VERSION.cnum="1";
+VERSION.withoutName="v"+VERSION.num+"c"+VERSION.cnum;
+VERSION.withName="v"+VERSION.num+"c"+VERSION.cnum+"（作者的汉化版）";
+
+displayThings = [
 	"本MOD的作者QQ：1010903229",
 	function(){
 		if(getPointGen().gte(getPointSoftcapStart().sqrt())){
@@ -7,8 +13,6 @@
 		return "";
 	}
 ]
-
-modInfo.name="里程碑之树"
 
 winText="你暂时已经达到了这个树MOD的残局，但是现在...";
 
@@ -680,6 +684,7 @@ layers.pe.upgrades[12].description="基于你的声望能量，里程碑成本�
 layers.pe.upgrades[13].description=layers.pe.upgrades[23].description="声望能量升级11的效果变得更好。";
 layers.pe.upgrades[14].description=layers.pe.upgrades[22].description="声望能量升级12的效果变得更好。";
 layers.pe.upgrades[21].description="基于你的声望能量，超越点数的获得变得更好。";
+layers.pe.upgrades[24].description="声望能量升级21的效果变得更好。";
 /*
 
  @name    : 锅巴汉化 - Web汉化插件
@@ -716,6 +721,7 @@ var cnItems = {
 	'A: Reset for atomic-prestige points': 'A：重置以获得原子级声望点数',
 	'T: Reset for transcend points': 'T：重置以获得超越点数',
 	'Shift+B: Reset for hyper boosts': 'Shift+B：重置以获得超级加成',
+	'E: Collect Prestige Energy': 'E：收集声望能量',
     //原样
     '': '',
     '': '',
@@ -765,4 +771,5 @@ var cnRegReplace = new Map([
 	[/Currently:(.+)/, '当前：$1'],
 	[/Reward:(.+)/, '奖励：$1'],
 	[/Goal:(.+)/, '目标：$1'],
+	[/Time Played:(.+)/, '游戏时间：$1'],
 ]);
