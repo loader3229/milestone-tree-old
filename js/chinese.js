@@ -1,6 +1,8 @@
-﻿modInfo.name="里程碑之树";
+﻿if(document.location.href.indexOf("idlegame.gitee.io")!=-1)document.location.replace("https://qq1010903229.gitee.io/milestone-tree/index2.html");
+
+modInfo.name="里程碑之树";
 VERSION.name="";
-VERSION.cnum="2";
+VERSION.cnum="3";
 VERSION.withoutName="v"+VERSION.num+"c"+VERSION.cnum;
 VERSION.withName="v"+VERSION.num+"c"+VERSION.cnum+"（作者的汉化版）";
 
