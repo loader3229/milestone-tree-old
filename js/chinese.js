@@ -1,8 +1,6 @@
-﻿if(document.location.href.indexOf("idlegame.gitee.io")!=-1)document.location.replace("https://qq1010903229.gitee.io/milestone-tree/index2.html");
-
-modInfo.name="里程碑之树";
+﻿modInfo.name="里程碑之树";
 VERSION.name="";
-VERSION.cnum="3";
+VERSION.cnum="4";
 VERSION.withoutName="v"+VERSION.num+"c"+VERSION.cnum;
 VERSION.withName="v"+VERSION.num+"c"+VERSION.cnum+"（作者的汉化版）";
 
@@ -710,8 +708,7 @@ layers.pe.upgrades[24].description="声望能量升级21的效果变得更好。
 //1.汉化杂项
 var cnItems = {
     _OTHER_: [],
-
-
+	
     'You have': '你有',
     'You have ': '你有',
     'points': '点数',
@@ -723,6 +720,22 @@ var cnItems = {
     'Completed': '已完成',
     'Finish': '完成挑战',
 	
+    'HARD RESET': '硬复位',
+    'ON': '开启',
+    'OFF': '关闭',
+    'Save': '保存',
+    'Export to clipboard': '导出到剪贴板',
+    'Export': '导出',
+    'Import': '导入',
+    'You have': '你有',
+    'ALWAYS': '一直',
+    'Default': '默认',
+    'Aqua': '水色',
+    'HIDDEN': '隐藏',
+    'AUTOMATION': '自动',
+    'SHOWN': '显示',
+    'INCOMPLETE': '未获得',
+    'NEVER': '从不',
 	
 	'Hotkeys': '热键',
 	'M: Get Milestone': 'M：获得里程碑',
@@ -735,6 +748,7 @@ var cnItems = {
 	'T: Reset for transcend points': 'T：重置以获得超越点数',
 	'Shift+B: Reset for hyper boosts': 'Shift+B：重置以获得超级加成',
 	'E: Collect Prestige Energy': 'E：收集声望能量',
+	
     //原样
     '': '',
     '': '',
@@ -744,6 +758,21 @@ var cnItems = {
 
 //需处理的前缀
 var cnPrefix = {
+    "Autosave: ": "自动保存：",
+    "Offline Prod: ": "离线生产：",
+    "Offline Time": "离线时间",
+    "Theme: ": "主题：",
+    "Show Milestones: ": "显示里程碑：",
+    "Completed Challenges: ": "完成的挑战：",
+    "High-Quality Tree: ": "高画质的树：",
+    "": "",
+    "": "",
+    "": "",
+    "": "",
+    "": "",
+    "": "",
+    "": "",
+    "": "",
 }
 
 //需处理的后缀
