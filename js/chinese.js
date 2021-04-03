@@ -37,7 +37,7 @@ layers.m.milestones[3-1].effectDescription=function(){
 	return "基于你的点数，第一个里程碑的效果变得更好。当前："+format(tmp.m.milestone3Effect)+"x";
 }
 layers.m.milestones[4-1].effectDescription=function(){
-	return "基于你的总里程碑数量，第三个里程碑的效果变得更好。当前：第三个里程碑的基础效果基数 +"+format(tmp.m.milestone3Effect);
+	return "基于你的总里程碑数量，第三个里程碑的效果变得更好。当前：第三个里程碑的基础效果基数 +"+format(tmp.m.milestone4Effect);
 }
 layers.m.milestones[5-1].effectDescription=function(){
 	return "解锁下一个层级。里程碑不会被重置。";
