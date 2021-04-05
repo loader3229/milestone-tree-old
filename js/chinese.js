@@ -777,6 +777,8 @@ var cnItems = {
 	'T: Reset for transcend points': 'T：重置以获得超越点数',
 	'Shift+B: Reset for hyper boosts': 'Shift+B：重置以获得超级加成',
 	'E: Collect Prestige Energy': 'E：收集声望能量',
+	'Shift+E: Collect Super Energy': 'Shift+E：收集超级能量',
+	'Ctrl+M: Get Extra-Milestone': 'Ctrl+M：获得额外里程碑',
 	
     //原样
     '': '',
