@@ -12,8 +12,8 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.141",
-	name: "Softcapped Transcension",
+	num: "1.145",
+	name: "Hardcapped Transcension",
 }
 
 let changelog = ``
@@ -87,6 +87,8 @@ function getPointSoftcapStart(){
 	sc=sc.pow(tmp.sp.buyables[12].effect);
 	sc=sc.pow(layers.t.getSpecialEffect(12));
 	if(hasUpgrade("t",73))sc=sc.pow(upgradeEffect("t",73));
+	if(hasUpgrade("se",11))sc=sc.pow(upgradeEffect("se",11));
+	sc=sc.pow(layers.t.getSpecialEffect(22));
 	return sc;
 }
 
@@ -108,7 +110,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.m.points.gte(141);
+	return player.m.points.gte(145);
 }
 
 
