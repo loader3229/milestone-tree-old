@@ -12,8 +12,8 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.145",
-	name: "Hardcapped Transcension",
+	num: "1.150",
+	name: "New layer will comes...",
 }
 
 let changelog = ``
@@ -110,7 +110,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.m.points.gte(145);
+	return player.m.points.gte(150);
 }
 
 

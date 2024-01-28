@@ -27,8 +27,8 @@ function toggleAuto(toggle) {
 	player[toggle[0]][toggle[1]] = !player[toggle[0]][toggle[1]];
 }
 function adjustMSDisp() {
-	let displays = ["always", "automation", "incomplete", "never"];
-	player.msDisplay = displays[(displays.indexOf(player.msDisplay) + 1) % 4];
+	let displays = ["always", "incomplete", "never"];
+	player.msDisplay = displays[(displays.indexOf(player.msDisplay) + 1) % 3];
 }
 function milestoneShown(layer, id) {
 	complete = player[layer].milestones.includes(id);

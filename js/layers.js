@@ -1215,6 +1215,46 @@
             unlocked() {return player[this.layer].best.gte(144)},
             done() {return player[this.layer].best.gte(145)}, // Used to determine when to give the milestone
             effectDescription:  function(){
+				return "Autogain AP challenge 1 completions.";
+			},
+        },
+		{
+			requirementDescription: "146th Milestone",
+            unlocked() {return player[this.layer].best.gte(145)},
+            done() {return player[this.layer].best.gte(146)}, // Used to determine when to give the milestone
+            effectDescription:  function(){
+				return "Autogain AP challenge 2 completions.";
+			},
+        },
+		{
+			requirementDescription: "147th Milestone",
+            unlocked() {return player[this.layer].best.gte(146)},
+            done() {return player[this.layer].best.gte(147)}, // Used to determine when to give the milestone
+            effectDescription:  function(){
+				return "Autogain AP challenge 3 completions.";
+			},
+        },
+		{
+			requirementDescription: "148th Milestone",
+            unlocked() {return player[this.layer].best.gte(147)},
+            done() {return player[this.layer].best.gte(148)}, // Used to determine when to give the milestone
+            effectDescription:  function(){
+				return "Autogain AP challenge 5 completions.";
+			},
+        },
+		{
+			requirementDescription: "149th Milestone",
+            unlocked() {return player[this.layer].best.gte(148)},
+            done() {return player[this.layer].best.gte(149)}, // Used to determine when to give the milestone
+            effectDescription:  function(){
+				return "Autogain AP challenge 6 completions.";
+			},
+        },
+		{
+			requirementDescription: "150th Milestone",
+            unlocked() {return player[this.layer].best.gte(149)},
+            done() {return player[this.layer].best.gte(150)}, // Used to determine when to give the milestone
+            effectDescription:  function(){
 				return "Current Endgame";
 			},
         },
@@ -1315,6 +1355,9 @@
 		}
 		if(hasUpgrade("sp",42)){
 			b=b.mul(player.sp.points.add(1e20).log10().log10().div(30).add(1));
+		}
+		if(player.em.best.gte(2)){
+			b=b.mul(player.em.points.max(1).add(1));
 		}
 		return Decimal.pow(b,m);
 	},
@@ -2299,6 +2342,14 @@ addLayer("mm", {
 				return "25th Meta-Milestone's effect ^2, Unlock a new layer.";
 			},
         },
+		{
+			requirementDescription: "31st Meta-Milestone",
+            unlocked() {return player[this.layer].best.gte(30)},
+            done() {return player[this.layer].best.gte(31)}, // Used to determine when to give the milestone
+            effectDescription: function(){
+				return "Prestige Energy gain is doubled";
+			},
+        },
 	],
     resetDescription: "Get ",
 	branches:["m"],
@@ -2744,6 +2795,15 @@ addLayer("hp", {
 			},
             unlocked() { return player.m.points.gte(142)}, // The upgrade is only visible when this is true
         },
+		42: {
+			title: "Hyper-Prestige Upgrade 42",
+            description: "Second Hyper-Prestige buyable is cheaper. You can buy this upgrade while you're in AP challenge 6.",
+            cost(){
+				if(player.ap.activeChallenge!=32)return new Decimal(Infinity);
+				return new Decimal("e479e7");
+			},
+            unlocked() { return player.m.points.gte(142)}, // The upgrade is only visible when this is true
+        },
 	},
 	
 	buyables: {
@@ -2798,7 +2858,11 @@ addLayer("hp", {
 			},
 			cost(){
 				let a=player[this.layer].buyables[this.id];
-				if(a.gte(3))a=a.div(3).pow(1.5).mul(3);
+				if(a.gte(3)){
+					let p=1.5;
+					if(hasUpgrade("hp",42))p-=0.25;
+					a=a.div(3).pow(p).mul(3);
+				}
 				return new Decimal("1e690000").mul(Decimal.pow("1e10000",a));
 			},
 			canAfford() {
@@ -2845,7 +2909,11 @@ addLayer("hp", {
 		}
 		if(player.m.points.gte(107)){
 			var target=player.hp.points.add(1).div("1e690000").log("1e10000");
-			if(target.gte(3))target=target.div(3).pow(1/1.5).mul(3);
+			if(target.gte(3)){
+				let p=1.5;
+				if(hasUpgrade("hp",42))p-=0.25;
+				target=target.div(3).pow(1/p).mul(3);
+			}
 			target=target.add(1).floor();
 			if(target.gt(player.hp.buyables[12])){
 				player.hp.buyables[12]=target;
@@ -3270,6 +3338,21 @@ addLayer("ap", {
 					player.t.highestAPC[player.t.activeChallenge||0][i]=Math.max(player.t.highestAPC[player.t.activeChallenge||0][i],player.ap.challenges[i]);
 					player.ap.challenges[i]=Math.max(player.t.highestAPC[player.t.activeChallenge||0][i],player.ap.challenges[i]);
 				}
+			}
+			if(player.m.points.gte(145)){
+				player.ap.challenges[11]=Math.max(player.ap.challenges[11],layers.ap.challenges[11].completionsAfter120());
+			}
+			if(player.m.points.gte(146)){
+				player.ap.challenges[12]=Math.max(player.ap.challenges[12],layers.ap.challenges[12].completionsAfter120());
+			}
+			if(player.m.points.gte(147)){
+				player.ap.challenges[21]=Math.max(player.ap.challenges[21],layers.ap.challenges[21].completionsAfter120());
+			}
+			if(player.m.points.gte(148)){
+				player.ap.challenges[31]=Math.max(player.ap.challenges[31],layers.ap.challenges[31].completionsAfter120());
+			}
+			if(player.m.points.gte(149)){
+				player.ap.challenges[32]=Math.max(player.ap.challenges[32],layers.ap.challenges[32].completionsAfter120());
 			}
 		}
 })
@@ -3741,7 +3824,7 @@ addLayer("t", {
                 rewardDescription() { return "1st milestone's softcap starts later." },
 		},
 	},
-	
+	hardcap:new Decimal(2e17),
 	passiveGeneration(){
 		if(player.t.activeChallenge)return 0;
 		if(player.m.points.gte(133))return 1;
@@ -3762,7 +3845,7 @@ addLayer("t", {
 		"Main":{
 			content:[
 				"main-display","prestige-button","resource-display",
-				["display-text",function(){return "Transcend point is hardcapped at "+format(1e16)}],
+				["display-text",function(){return "Transcend point is hardcapped at "+format(layers.t.hardcap)}],
 				"upgrades",
 				["display-text",function(){return "AP challenge is applied after T challenge, softcap is applied after AP challenge"}],
 				["display-text",function(){
@@ -3789,7 +3872,7 @@ addLayer("t", {
 		},
 	},
 	update(){
-		if(player.t.points.gte(1e16))player.t.points=new Decimal(1e16);
+		if(player.t.points.gte(layers.t.hardcap))player.t.points=new Decimal(layers.t.hardcap);
 		if(player.m.best.gte(130) && player.t.activeChallenge){
 			if(player.t.specialPoints[player.t.activeChallenge].lt(layers.t.getResetGain())){
 				player.t.specialPoints[player.t.activeChallenge]=layers.t.getResetGain();
@@ -4011,6 +4094,7 @@ addLayer("pe", {
 		if(player.mm.points.gte(27))b=b.sqrt();
 		if(player.mm.points.gte(28))b=b.sqrt();
 		if(player.mm.points.gte(29))b=b.sqrt();
+		if(player.mm.points.gte(31))b=b.sqrt();
 		return b;
 	},
 	exponent: function(){
@@ -4155,6 +4239,7 @@ addLayer("se", {
             unlocked() { return true}, // The upgrade is only visible when this is true
 			effect() {
 				let b=player.se.points.add(1).log10().div(100);
+				if(hasUpgrade("se",13))b=b.mul(1.5);
 				return b.add(1);
             },
             effectDisplay() { return format(this.effect(),4)+"x later" }, // Add formatting to the effect
@@ -4169,6 +4254,12 @@ addLayer("se", {
 				return b.add(1);
             },
             effectDisplay() { return format(this.effect(),4)+"x later" }, // Add formatting to the effect
+        },
+		13: {
+			title: "Super Energy Upgrade 13",
+            description: "Super Energy Upgrade 11 is boosted.",
+            cost: new Decimal(8.06e12),
+            unlocked() { return true}, // The upgrade is only visible when this is true
         },
 	},
 	
@@ -4228,6 +4319,14 @@ addLayer("em", {
             done() {return player[this.layer].best.gte(1)}, // Used to determine when to give the milestone
             effectDescription: function(){
 				return "Autoget Meta-Milestones."
+			},
+        },
+		{
+			requirementDescription: "2nd Extra-Milestone",
+            unlocked() {return player[this.layer].best.gte(1)},
+            done() {return player[this.layer].best.gte(2)}, // Used to determine when to give the milestone
+            effectDescription: function(){
+				return "Third Milestone's effect is better based on your extra-milestones."
 			},
         },
 	],
