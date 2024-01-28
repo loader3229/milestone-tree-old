@@ -1,6 +1,6 @@
 ﻿modInfo.name="里程碑之树";
 VERSION.name="";
-VERSION.cnum="0";
+VERSION.cnum="1";
 VERSION.withoutName="v"+VERSION.num+"c"+VERSION.cnum;
 VERSION.withName="v"+VERSION.num+"c"+VERSION.cnum+"（作者的汉化版）";
 
@@ -537,6 +537,7 @@ layers.hp.upgrades[31].description="第一个超级声望可重复购买项的�
 layers.hp.upgrades[32].description="第一个第三级声望可重复购买项的效果变为原来的1.1次方。";
 layers.hp.upgrades[23].effectDisplay=function(){return format(this.effect(),4)+"x";}
 layers.hp.upgrades[41].description="第一个第三级声望可重复购买项更便宜，你需要在原子级挑战6里面购买这个升级。";
+layers.hp.upgrades[42].description="第二个第三级声望可重复购买项更便宜，你需要在原子级挑战6里面购买这个升级。";
 
 layers.hp.buyables[11].title="声望点数倍数";
 layers.hp.buyables[11].display=function(){
@@ -692,6 +693,21 @@ layers.t.tabFormat.Main.content[6][1]=function(){
 	for(var i in player.ap.challenges)c+=player.ap.challenges[i];
 	return "原子级挑战完成数："+format(c,4)
 }
+layers.t.tabFormat["Special Transcend Points"].content=[
+				"main-display",
+				["display-text",function(){return "在超越挑战中得到"+format(tmp.t.requires1)+"原子级声望点数，即可得到超越挑战点数！"}],
+				function(){if(!player.t.activeChallenge)return ["display-text","你不在超越挑战中，无法得到超越挑战点数！"];return "resource-display"},
+				["display-text",function(){if(!player.t.activeChallenge || player.t.specialPoints[player.t.activeChallenge].gte(1e6))return "";return "下一个"+layers.t.getSpecialTPName(player.t.activeChallenge)+"在"+format(tmp.t.getNextSPAt)+"原子级声望点数"}],
+				["display-text",function(){return "你有"+format(player.t.specialPoints[11])+layers.t.getSpecialTPName(11)+"，第3个里程碑的效果变为原来的"+format(layers.t.getSpecialEffect(11),4)+"次方"}],
+				["display-text",function(){return "你有"+format(player.t.specialPoints[12])+layers.t.getSpecialTPName(12)+"，第1个里程碑的软上限延迟"+format(layers.t.getSpecialEffect(12),4)+"倍出现"}],
+				["display-text",function(){return "你有"+format(player.t.specialPoints[21])+layers.t.getSpecialTPName(21)+"，声望点数变为原来的"+format(layers.t.getSpecialEffect(21),4)+"次方"}],
+				["display-text",function(){return "你有"+format(player.t.specialPoints[22])+layers.t.getSpecialTPName(22)+"，第1个里程碑的软上限延迟"+format(layers.t.getSpecialEffect(22),4)+"倍出现"}],
+				["display-text",function(){return "你有"+format(player.t.specialPoints[31])+layers.t.getSpecialTPName(31)}],
+				["display-text",function(){return "你有"+format(player.t.specialPoints[32])+layers.t.getSpecialTPName(32)}],
+			],
+layers.t.getSpecialTPName=function(a){
+	return layers.t.challenges[a]?.name+"点数";
+}
 
 layers.hb.resource="超级加成";
 layers.hb.effectDescription=function(){
@@ -723,6 +739,11 @@ layers.pe.upgrades[13].description=layers.pe.upgrades[23].description="声望能
 layers.pe.upgrades[14].description=layers.pe.upgrades[22].description="声望能量升级12的效果变得更好。";
 layers.pe.upgrades[21].description="基于你的声望能量，超越点数的获得变得更好。";
 layers.pe.upgrades[24].description="声望能量升级21的效果变得更好。";
+layers.pe.tabFormat[2][1]=function(){
+	let peroom=new Decimal(10).log(tmp.pe.base);
+	let power=new Decimal(1).div(tmp.pe.exponent);
+	return "(声望能量="+format(peroom)+"*log10(最高声望点数)^"+format(power)+")";
+}
 
 layers.se.resource="超级能量";
 layers.se.baseResource="超级声望点数";
@@ -734,6 +755,12 @@ for(i in layers.se.upgrades){
 }
 layers.se.upgrades[11].description="基于你的超级能量，第一个里程碑的软上限开始得更迟。";
 layers.se.upgrades[12].description="基于你的超级能量，里程碑成本快速增加的效果变得更慢。";
+layers.se.upgrades[13].description="超级能量升级11的效果变得更好。";
+layers.se.tabFormat[2][1]=function(){
+	let peroom=new Decimal(10).log(tmp.se.base);
+	let power=new Decimal(1).div(tmp.se.exponent);
+	return "(超级声望能量="+format(peroom)+"*log10(最高超级声望点数)^"+format(power)+")";
+}
 
 /*
 
@@ -789,6 +816,10 @@ var cnItems = {
 	'E: Collect Prestige Energy': 'E：收集声望能量',
 	'Shift+E: Collect Super Energy': 'Shift+E：收集超级能量',
 	'Ctrl+M: Get Extra-Milestone': 'Ctrl+M：获得额外里程碑',
+	
+	'Main': '主要',
+	'Special Transcend Points': '超越挑战点数',
+	
 	
     //原样
     '': '',
